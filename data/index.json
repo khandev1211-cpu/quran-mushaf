@@ -1,0 +1,5397 @@
+{
+  "version": 1,
+  "built_at": "2026-05-21T10:55:26.852174+00:00",
+  "total_pages": 604,
+  "total_surahs": 114,
+  "total_juz": 30,
+  "fonts": {
+    "woff_dir": "woff",
+    "ttf_dir": "ttf",
+    "naming": "p{page:03d}.woff / p{page:03d}.ttf",
+    "note": "Har mushaf page ka alag font — QCF style"
+  },
+  "pages_index": [
+    {
+      "page": 1,
+      "file": "pages/001.json",
+      "font": "p001"
+    },
+    {
+      "page": 2,
+      "file": "pages/002.json",
+      "font": "p002"
+    },
+    {
+      "page": 3,
+      "file": "pages/003.json",
+      "font": "p003"
+    },
+    {
+      "page": 4,
+      "file": "pages/004.json",
+      "font": "p004"
+    },
+    {
+      "page": 5,
+      "file": "pages/005.json",
+      "font": "p005"
+    },
+    {
+      "page": 6,
+      "file": "pages/006.json",
+      "font": "p006"
+    },
+    {
+      "page": 7,
+      "file": "pages/007.json",
+      "font": "p007"
+    },
+    {
+      "page": 8,
+      "file": "pages/008.json",
+      "font": "p008"
+    },
+    {
+      "page": 9,
+      "file": "pages/009.json",
+      "font": "p009"
+    },
+    {
+      "page": 10,
+      "file": "pages/010.json",
+      "font": "p010"
+    },
+    {
+      "page": 11,
+      "file": "pages/011.json",
+      "font": "p011"
+    },
+    {
+      "page": 12,
+      "file": "pages/012.json",
+      "font": "p012"
+    },
+    {
+      "page": 13,
+      "file": "pages/013.json",
+      "font": "p013"
+    },
+    {
+      "page": 14,
+      "file": "pages/014.json",
+      "font": "p014"
+    },
+    {
+      "page": 15,
+      "file": "pages/015.json",
+      "font": "p015"
+    },
+    {
+      "page": 16,
+      "file": "pages/016.json",
+      "font": "p016"
+    },
+    {
+      "page": 17,
+      "file": "pages/017.json",
+      "font": "p017"
+    },
+    {
+      "page": 18,
+      "file": "pages/018.json",
+      "font": "p018"
+    },
+    {
+      "page": 19,
+      "file": "pages/019.json",
+      "font": "p019"
+    },
+    {
+      "page": 20,
+      "file": "pages/020.json",
+      "font": "p020"
+    },
+    {
+      "page": 21,
+      "file": "pages/021.json",
+      "font": "p021"
+    },
+    {
+      "page": 22,
+      "file": "pages/022.json",
+      "font": "p022"
+    },
+    {
+      "page": 23,
+      "file": "pages/023.json",
+      "font": "p023"
+    },
+    {
+      "page": 24,
+      "file": "pages/024.json",
+      "font": "p024"
+    },
+    {
+      "page": 25,
+      "file": "pages/025.json",
+      "font": "p025"
+    },
+    {
+      "page": 26,
+      "file": "pages/026.json",
+      "font": "p026"
+    },
+    {
+      "page": 27,
+      "file": "pages/027.json",
+      "font": "p027"
+    },
+    {
+      "page": 28,
+      "file": "pages/028.json",
+      "font": "p028"
+    },
+    {
+      "page": 29,
+      "file": "pages/029.json",
+      "font": "p029"
+    },
+    {
+      "page": 30,
+      "file": "pages/030.json",
+      "font": "p030"
+    },
+    {
+      "page": 31,
+      "file": "pages/031.json",
+      "font": "p031"
+    },
+    {
+      "page": 32,
+      "file": "pages/032.json",
+      "font": "p032"
+    },
+    {
+      "page": 33,
+      "file": "pages/033.json",
+      "font": "p033"
+    },
+    {
+      "page": 34,
+      "file": "pages/034.json",
+      "font": "p034"
+    },
+    {
+      "page": 35,
+      "file": "pages/035.json",
+      "font": "p035"
+    },
+    {
+      "page": 36,
+      "file": "pages/036.json",
+      "font": "p036"
+    },
+    {
+      "page": 37,
+      "file": "pages/037.json",
+      "font": "p037"
+    },
+    {
+      "page": 38,
+      "file": "pages/038.json",
+      "font": "p038"
+    },
+    {
+      "page": 39,
+      "file": "pages/039.json",
+      "font": "p039"
+    },
+    {
+      "page": 40,
+      "file": "pages/040.json",
+      "font": "p040"
+    },
+    {
+      "page": 41,
+      "file": "pages/041.json",
+      "font": "p041"
+    },
+    {
+      "page": 42,
+      "file": "pages/042.json",
+      "font": "p042"
+    },
+    {
+      "page": 43,
+      "file": "pages/043.json",
+      "font": "p043"
+    },
+    {
+      "page": 44,
+      "file": "pages/044.json",
+      "font": "p044"
+    },
+    {
+      "page": 45,
+      "file": "pages/045.json",
+      "font": "p045"
+    },
+    {
+      "page": 46,
+      "file": "pages/046.json",
+      "font": "p046"
+    },
+    {
+      "page": 47,
+      "file": "pages/047.json",
+      "font": "p047"
+    },
+    {
+      "page": 48,
+      "file": "pages/048.json",
+      "font": "p048"
+    },
+    {
+      "page": 49,
+      "file": "pages/049.json",
+      "font": "p049"
+    },
+    {
+      "page": 50,
+      "file": "pages/050.json",
+      "font": "p050"
+    },
+    {
+      "page": 51,
+      "file": "pages/051.json",
+      "font": "p051"
+    },
+    {
+      "page": 52,
+      "file": "pages/052.json",
+      "font": "p052"
+    },
+    {
+      "page": 53,
+      "file": "pages/053.json",
+      "font": "p053"
+    },
+    {
+      "page": 54,
+      "file": "pages/054.json",
+      "font": "p054"
+    },
+    {
+      "page": 55,
+      "file": "pages/055.json",
+      "font": "p055"
+    },
+    {
+      "page": 56,
+      "file": "pages/056.json",
+      "font": "p056"
+    },
+    {
+      "page": 57,
+      "file": "pages/057.json",
+      "font": "p057"
+    },
+    {
+      "page": 58,
+      "file": "pages/058.json",
+      "font": "p058"
+    },
+    {
+      "page": 59,
+      "file": "pages/059.json",
+      "font": "p059"
+    },
+    {
+      "page": 60,
+      "file": "pages/060.json",
+      "font": "p060"
+    },
+    {
+      "page": 61,
+      "file": "pages/061.json",
+      "font": "p061"
+    },
+    {
+      "page": 62,
+      "file": "pages/062.json",
+      "font": "p062"
+    },
+    {
+      "page": 63,
+      "file": "pages/063.json",
+      "font": "p063"
+    },
+    {
+      "page": 64,
+      "file": "pages/064.json",
+      "font": "p064"
+    },
+    {
+      "page": 65,
+      "file": "pages/065.json",
+      "font": "p065"
+    },
+    {
+      "page": 66,
+      "file": "pages/066.json",
+      "font": "p066"
+    },
+    {
+      "page": 67,
+      "file": "pages/067.json",
+      "font": "p067"
+    },
+    {
+      "page": 68,
+      "file": "pages/068.json",
+      "font": "p068"
+    },
+    {
+      "page": 69,
+      "file": "pages/069.json",
+      "font": "p069"
+    },
+    {
+      "page": 70,
+      "file": "pages/070.json",
+      "font": "p070"
+    },
+    {
+      "page": 71,
+      "file": "pages/071.json",
+      "font": "p071"
+    },
+    {
+      "page": 72,
+      "file": "pages/072.json",
+      "font": "p072"
+    },
+    {
+      "page": 73,
+      "file": "pages/073.json",
+      "font": "p073"
+    },
+    {
+      "page": 74,
+      "file": "pages/074.json",
+      "font": "p074"
+    },
+    {
+      "page": 75,
+      "file": "pages/075.json",
+      "font": "p075"
+    },
+    {
+      "page": 76,
+      "file": "pages/076.json",
+      "font": "p076"
+    },
+    {
+      "page": 77,
+      "file": "pages/077.json",
+      "font": "p077"
+    },
+    {
+      "page": 78,
+      "file": "pages/078.json",
+      "font": "p078"
+    },
+    {
+      "page": 79,
+      "file": "pages/079.json",
+      "font": "p079"
+    },
+    {
+      "page": 80,
+      "file": "pages/080.json",
+      "font": "p080"
+    },
+    {
+      "page": 81,
+      "file": "pages/081.json",
+      "font": "p081"
+    },
+    {
+      "page": 82,
+      "file": "pages/082.json",
+      "font": "p082"
+    },
+    {
+      "page": 83,
+      "file": "pages/083.json",
+      "font": "p083"
+    },
+    {
+      "page": 84,
+      "file": "pages/084.json",
+      "font": "p084"
+    },
+    {
+      "page": 85,
+      "file": "pages/085.json",
+      "font": "p085"
+    },
+    {
+      "page": 86,
+      "file": "pages/086.json",
+      "font": "p086"
+    },
+    {
+      "page": 87,
+      "file": "pages/087.json",
+      "font": "p087"
+    },
+    {
+      "page": 88,
+      "file": "pages/088.json",
+      "font": "p088"
+    },
+    {
+      "page": 89,
+      "file": "pages/089.json",
+      "font": "p089"
+    },
+    {
+      "page": 90,
+      "file": "pages/090.json",
+      "font": "p090"
+    },
+    {
+      "page": 91,
+      "file": "pages/091.json",
+      "font": "p091"
+    },
+    {
+      "page": 92,
+      "file": "pages/092.json",
+      "font": "p092"
+    },
+    {
+      "page": 93,
+      "file": "pages/093.json",
+      "font": "p093"
+    },
+    {
+      "page": 94,
+      "file": "pages/094.json",
+      "font": "p094"
+    },
+    {
+      "page": 95,
+      "file": "pages/095.json",
+      "font": "p095"
+    },
+    {
+      "page": 96,
+      "file": "pages/096.json",
+      "font": "p096"
+    },
+    {
+      "page": 97,
+      "file": "pages/097.json",
+      "font": "p097"
+    },
+    {
+      "page": 98,
+      "file": "pages/098.json",
+      "font": "p098"
+    },
+    {
+      "page": 99,
+      "file": "pages/099.json",
+      "font": "p099"
+    },
+    {
+      "page": 100,
+      "file": "pages/100.json",
+      "font": "p100"
+    },
+    {
+      "page": 101,
+      "file": "pages/101.json",
+      "font": "p101"
+    },
+    {
+      "page": 102,
+      "file": "pages/102.json",
+      "font": "p102"
+    },
+    {
+      "page": 103,
+      "file": "pages/103.json",
+      "font": "p103"
+    },
+    {
+      "page": 104,
+      "file": "pages/104.json",
+      "font": "p104"
+    },
+    {
+      "page": 105,
+      "file": "pages/105.json",
+      "font": "p105"
+    },
+    {
+      "page": 106,
+      "file": "pages/106.json",
+      "font": "p106"
+    },
+    {
+      "page": 107,
+      "file": "pages/107.json",
+      "font": "p107"
+    },
+    {
+      "page": 108,
+      "file": "pages/108.json",
+      "font": "p108"
+    },
+    {
+      "page": 109,
+      "file": "pages/109.json",
+      "font": "p109"
+    },
+    {
+      "page": 110,
+      "file": "pages/110.json",
+      "font": "p110"
+    },
+    {
+      "page": 111,
+      "file": "pages/111.json",
+      "font": "p111"
+    },
+    {
+      "page": 112,
+      "file": "pages/112.json",
+      "font": "p112"
+    },
+    {
+      "page": 113,
+      "file": "pages/113.json",
+      "font": "p113"
+    },
+    {
+      "page": 114,
+      "file": "pages/114.json",
+      "font": "p114"
+    },
+    {
+      "page": 115,
+      "file": "pages/115.json",
+      "font": "p115"
+    },
+    {
+      "page": 116,
+      "file": "pages/116.json",
+      "font": "p116"
+    },
+    {
+      "page": 117,
+      "file": "pages/117.json",
+      "font": "p117"
+    },
+    {
+      "page": 118,
+      "file": "pages/118.json",
+      "font": "p118"
+    },
+    {
+      "page": 119,
+      "file": "pages/119.json",
+      "font": "p119"
+    },
+    {
+      "page": 120,
+      "file": "pages/120.json",
+      "font": "p120"
+    },
+    {
+      "page": 121,
+      "file": "pages/121.json",
+      "font": "p121"
+    },
+    {
+      "page": 122,
+      "file": "pages/122.json",
+      "font": "p122"
+    },
+    {
+      "page": 123,
+      "file": "pages/123.json",
+      "font": "p123"
+    },
+    {
+      "page": 124,
+      "file": "pages/124.json",
+      "font": "p124"
+    },
+    {
+      "page": 125,
+      "file": "pages/125.json",
+      "font": "p125"
+    },
+    {
+      "page": 126,
+      "file": "pages/126.json",
+      "font": "p126"
+    },
+    {
+      "page": 127,
+      "file": "pages/127.json",
+      "font": "p127"
+    },
+    {
+      "page": 128,
+      "file": "pages/128.json",
+      "font": "p128"
+    },
+    {
+      "page": 129,
+      "file": "pages/129.json",
+      "font": "p129"
+    },
+    {
+      "page": 130,
+      "file": "pages/130.json",
+      "font": "p130"
+    },
+    {
+      "page": 131,
+      "file": "pages/131.json",
+      "font": "p131"
+    },
+    {
+      "page": 132,
+      "file": "pages/132.json",
+      "font": "p132"
+    },
+    {
+      "page": 133,
+      "file": "pages/133.json",
+      "font": "p133"
+    },
+    {
+      "page": 134,
+      "file": "pages/134.json",
+      "font": "p134"
+    },
+    {
+      "page": 135,
+      "file": "pages/135.json",
+      "font": "p135"
+    },
+    {
+      "page": 136,
+      "file": "pages/136.json",
+      "font": "p136"
+    },
+    {
+      "page": 137,
+      "file": "pages/137.json",
+      "font": "p137"
+    },
+    {
+      "page": 138,
+      "file": "pages/138.json",
+      "font": "p138"
+    },
+    {
+      "page": 139,
+      "file": "pages/139.json",
+      "font": "p139"
+    },
+    {
+      "page": 140,
+      "file": "pages/140.json",
+      "font": "p140"
+    },
+    {
+      "page": 141,
+      "file": "pages/141.json",
+      "font": "p141"
+    },
+    {
+      "page": 142,
+      "file": "pages/142.json",
+      "font": "p142"
+    },
+    {
+      "page": 143,
+      "file": "pages/143.json",
+      "font": "p143"
+    },
+    {
+      "page": 144,
+      "file": "pages/144.json",
+      "font": "p144"
+    },
+    {
+      "page": 145,
+      "file": "pages/145.json",
+      "font": "p145"
+    },
+    {
+      "page": 146,
+      "file": "pages/146.json",
+      "font": "p146"
+    },
+    {
+      "page": 147,
+      "file": "pages/147.json",
+      "font": "p147"
+    },
+    {
+      "page": 148,
+      "file": "pages/148.json",
+      "font": "p148"
+    },
+    {
+      "page": 149,
+      "file": "pages/149.json",
+      "font": "p149"
+    },
+    {
+      "page": 150,
+      "file": "pages/150.json",
+      "font": "p150"
+    },
+    {
+      "page": 151,
+      "file": "pages/151.json",
+      "font": "p151"
+    },
+    {
+      "page": 152,
+      "file": "pages/152.json",
+      "font": "p152"
+    },
+    {
+      "page": 153,
+      "file": "pages/153.json",
+      "font": "p153"
+    },
+    {
+      "page": 154,
+      "file": "pages/154.json",
+      "font": "p154"
+    },
+    {
+      "page": 155,
+      "file": "pages/155.json",
+      "font": "p155"
+    },
+    {
+      "page": 156,
+      "file": "pages/156.json",
+      "font": "p156"
+    },
+    {
+      "page": 157,
+      "file": "pages/157.json",
+      "font": "p157"
+    },
+    {
+      "page": 158,
+      "file": "pages/158.json",
+      "font": "p158"
+    },
+    {
+      "page": 159,
+      "file": "pages/159.json",
+      "font": "p159"
+    },
+    {
+      "page": 160,
+      "file": "pages/160.json",
+      "font": "p160"
+    },
+    {
+      "page": 161,
+      "file": "pages/161.json",
+      "font": "p161"
+    },
+    {
+      "page": 162,
+      "file": "pages/162.json",
+      "font": "p162"
+    },
+    {
+      "page": 163,
+      "file": "pages/163.json",
+      "font": "p163"
+    },
+    {
+      "page": 164,
+      "file": "pages/164.json",
+      "font": "p164"
+    },
+    {
+      "page": 165,
+      "file": "pages/165.json",
+      "font": "p165"
+    },
+    {
+      "page": 166,
+      "file": "pages/166.json",
+      "font": "p166"
+    },
+    {
+      "page": 167,
+      "file": "pages/167.json",
+      "font": "p167"
+    },
+    {
+      "page": 168,
+      "file": "pages/168.json",
+      "font": "p168"
+    },
+    {
+      "page": 169,
+      "file": "pages/169.json",
+      "font": "p169"
+    },
+    {
+      "page": 170,
+      "file": "pages/170.json",
+      "font": "p170"
+    },
+    {
+      "page": 171,
+      "file": "pages/171.json",
+      "font": "p171"
+    },
+    {
+      "page": 172,
+      "file": "pages/172.json",
+      "font": "p172"
+    },
+    {
+      "page": 173,
+      "file": "pages/173.json",
+      "font": "p173"
+    },
+    {
+      "page": 174,
+      "file": "pages/174.json",
+      "font": "p174"
+    },
+    {
+      "page": 175,
+      "file": "pages/175.json",
+      "font": "p175"
+    },
+    {
+      "page": 176,
+      "file": "pages/176.json",
+      "font": "p176"
+    },
+    {
+      "page": 177,
+      "file": "pages/177.json",
+      "font": "p177"
+    },
+    {
+      "page": 178,
+      "file": "pages/178.json",
+      "font": "p178"
+    },
+    {
+      "page": 179,
+      "file": "pages/179.json",
+      "font": "p179"
+    },
+    {
+      "page": 180,
+      "file": "pages/180.json",
+      "font": "p180"
+    },
+    {
+      "page": 181,
+      "file": "pages/181.json",
+      "font": "p181"
+    },
+    {
+      "page": 182,
+      "file": "pages/182.json",
+      "font": "p182"
+    },
+    {
+      "page": 183,
+      "file": "pages/183.json",
+      "font": "p183"
+    },
+    {
+      "page": 184,
+      "file": "pages/184.json",
+      "font": "p184"
+    },
+    {
+      "page": 185,
+      "file": "pages/185.json",
+      "font": "p185"
+    },
+    {
+      "page": 186,
+      "file": "pages/186.json",
+      "font": "p186"
+    },
+    {
+      "page": 187,
+      "file": "pages/187.json",
+      "font": "p187"
+    },
+    {
+      "page": 188,
+      "file": "pages/188.json",
+      "font": "p188"
+    },
+    {
+      "page": 189,
+      "file": "pages/189.json",
+      "font": "p189"
+    },
+    {
+      "page": 190,
+      "file": "pages/190.json",
+      "font": "p190"
+    },
+    {
+      "page": 191,
+      "file": "pages/191.json",
+      "font": "p191"
+    },
+    {
+      "page": 192,
+      "file": "pages/192.json",
+      "font": "p192"
+    },
+    {
+      "page": 193,
+      "file": "pages/193.json",
+      "font": "p193"
+    },
+    {
+      "page": 194,
+      "file": "pages/194.json",
+      "font": "p194"
+    },
+    {
+      "page": 195,
+      "file": "pages/195.json",
+      "font": "p195"
+    },
+    {
+      "page": 196,
+      "file": "pages/196.json",
+      "font": "p196"
+    },
+    {
+      "page": 197,
+      "file": "pages/197.json",
+      "font": "p197"
+    },
+    {
+      "page": 198,
+      "file": "pages/198.json",
+      "font": "p198"
+    },
+    {
+      "page": 199,
+      "file": "pages/199.json",
+      "font": "p199"
+    },
+    {
+      "page": 200,
+      "file": "pages/200.json",
+      "font": "p200"
+    },
+    {
+      "page": 201,
+      "file": "pages/201.json",
+      "font": "p201"
+    },
+    {
+      "page": 202,
+      "file": "pages/202.json",
+      "font": "p202"
+    },
+    {
+      "page": 203,
+      "file": "pages/203.json",
+      "font": "p203"
+    },
+    {
+      "page": 204,
+      "file": "pages/204.json",
+      "font": "p204"
+    },
+    {
+      "page": 205,
+      "file": "pages/205.json",
+      "font": "p205"
+    },
+    {
+      "page": 206,
+      "file": "pages/206.json",
+      "font": "p206"
+    },
+    {
+      "page": 207,
+      "file": "pages/207.json",
+      "font": "p207"
+    },
+    {
+      "page": 208,
+      "file": "pages/208.json",
+      "font": "p208"
+    },
+    {
+      "page": 209,
+      "file": "pages/209.json",
+      "font": "p209"
+    },
+    {
+      "page": 210,
+      "file": "pages/210.json",
+      "font": "p210"
+    },
+    {
+      "page": 211,
+      "file": "pages/211.json",
+      "font": "p211"
+    },
+    {
+      "page": 212,
+      "file": "pages/212.json",
+      "font": "p212"
+    },
+    {
+      "page": 213,
+      "file": "pages/213.json",
+      "font": "p213"
+    },
+    {
+      "page": 214,
+      "file": "pages/214.json",
+      "font": "p214"
+    },
+    {
+      "page": 215,
+      "file": "pages/215.json",
+      "font": "p215"
+    },
+    {
+      "page": 216,
+      "file": "pages/216.json",
+      "font": "p216"
+    },
+    {
+      "page": 217,
+      "file": "pages/217.json",
+      "font": "p217"
+    },
+    {
+      "page": 218,
+      "file": "pages/218.json",
+      "font": "p218"
+    },
+    {
+      "page": 219,
+      "file": "pages/219.json",
+      "font": "p219"
+    },
+    {
+      "page": 220,
+      "file": "pages/220.json",
+      "font": "p220"
+    },
+    {
+      "page": 221,
+      "file": "pages/221.json",
+      "font": "p221"
+    },
+    {
+      "page": 222,
+      "file": "pages/222.json",
+      "font": "p222"
+    },
+    {
+      "page": 223,
+      "file": "pages/223.json",
+      "font": "p223"
+    },
+    {
+      "page": 224,
+      "file": "pages/224.json",
+      "font": "p224"
+    },
+    {
+      "page": 225,
+      "file": "pages/225.json",
+      "font": "p225"
+    },
+    {
+      "page": 226,
+      "file": "pages/226.json",
+      "font": "p226"
+    },
+    {
+      "page": 227,
+      "file": "pages/227.json",
+      "font": "p227"
+    },
+    {
+      "page": 228,
+      "file": "pages/228.json",
+      "font": "p228"
+    },
+    {
+      "page": 229,
+      "file": "pages/229.json",
+      "font": "p229"
+    },
+    {
+      "page": 230,
+      "file": "pages/230.json",
+      "font": "p230"
+    },
+    {
+      "page": 231,
+      "file": "pages/231.json",
+      "font": "p231"
+    },
+    {
+      "page": 232,
+      "file": "pages/232.json",
+      "font": "p232"
+    },
+    {
+      "page": 233,
+      "file": "pages/233.json",
+      "font": "p233"
+    },
+    {
+      "page": 234,
+      "file": "pages/234.json",
+      "font": "p234"
+    },
+    {
+      "page": 235,
+      "file": "pages/235.json",
+      "font": "p235"
+    },
+    {
+      "page": 236,
+      "file": "pages/236.json",
+      "font": "p236"
+    },
+    {
+      "page": 237,
+      "file": "pages/237.json",
+      "font": "p237"
+    },
+    {
+      "page": 238,
+      "file": "pages/238.json",
+      "font": "p238"
+    },
+    {
+      "page": 239,
+      "file": "pages/239.json",
+      "font": "p239"
+    },
+    {
+      "page": 240,
+      "file": "pages/240.json",
+      "font": "p240"
+    },
+    {
+      "page": 241,
+      "file": "pages/241.json",
+      "font": "p241"
+    },
+    {
+      "page": 242,
+      "file": "pages/242.json",
+      "font": "p242"
+    },
+    {
+      "page": 243,
+      "file": "pages/243.json",
+      "font": "p243"
+    },
+    {
+      "page": 244,
+      "file": "pages/244.json",
+      "font": "p244"
+    },
+    {
+      "page": 245,
+      "file": "pages/245.json",
+      "font": "p245"
+    },
+    {
+      "page": 246,
+      "file": "pages/246.json",
+      "font": "p246"
+    },
+    {
+      "page": 247,
+      "file": "pages/247.json",
+      "font": "p247"
+    },
+    {
+      "page": 248,
+      "file": "pages/248.json",
+      "font": "p248"
+    },
+    {
+      "page": 249,
+      "file": "pages/249.json",
+      "font": "p249"
+    },
+    {
+      "page": 250,
+      "file": "pages/250.json",
+      "font": "p250"
+    },
+    {
+      "page": 251,
+      "file": "pages/251.json",
+      "font": "p251"
+    },
+    {
+      "page": 252,
+      "file": "pages/252.json",
+      "font": "p252"
+    },
+    {
+      "page": 253,
+      "file": "pages/253.json",
+      "font": "p253"
+    },
+    {
+      "page": 254,
+      "file": "pages/254.json",
+      "font": "p254"
+    },
+    {
+      "page": 255,
+      "file": "pages/255.json",
+      "font": "p255"
+    },
+    {
+      "page": 256,
+      "file": "pages/256.json",
+      "font": "p256"
+    },
+    {
+      "page": 257,
+      "file": "pages/257.json",
+      "font": "p257"
+    },
+    {
+      "page": 258,
+      "file": "pages/258.json",
+      "font": "p258"
+    },
+    {
+      "page": 259,
+      "file": "pages/259.json",
+      "font": "p259"
+    },
+    {
+      "page": 260,
+      "file": "pages/260.json",
+      "font": "p260"
+    },
+    {
+      "page": 261,
+      "file": "pages/261.json",
+      "font": "p261"
+    },
+    {
+      "page": 262,
+      "file": "pages/262.json",
+      "font": "p262"
+    },
+    {
+      "page": 263,
+      "file": "pages/263.json",
+      "font": "p263"
+    },
+    {
+      "page": 264,
+      "file": "pages/264.json",
+      "font": "p264"
+    },
+    {
+      "page": 265,
+      "file": "pages/265.json",
+      "font": "p265"
+    },
+    {
+      "page": 266,
+      "file": "pages/266.json",
+      "font": "p266"
+    },
+    {
+      "page": 267,
+      "file": "pages/267.json",
+      "font": "p267"
+    },
+    {
+      "page": 268,
+      "file": "pages/268.json",
+      "font": "p268"
+    },
+    {
+      "page": 269,
+      "file": "pages/269.json",
+      "font": "p269"
+    },
+    {
+      "page": 270,
+      "file": "pages/270.json",
+      "font": "p270"
+    },
+    {
+      "page": 271,
+      "file": "pages/271.json",
+      "font": "p271"
+    },
+    {
+      "page": 272,
+      "file": "pages/272.json",
+      "font": "p272"
+    },
+    {
+      "page": 273,
+      "file": "pages/273.json",
+      "font": "p273"
+    },
+    {
+      "page": 274,
+      "file": "pages/274.json",
+      "font": "p274"
+    },
+    {
+      "page": 275,
+      "file": "pages/275.json",
+      "font": "p275"
+    },
+    {
+      "page": 276,
+      "file": "pages/276.json",
+      "font": "p276"
+    },
+    {
+      "page": 277,
+      "file": "pages/277.json",
+      "font": "p277"
+    },
+    {
+      "page": 278,
+      "file": "pages/278.json",
+      "font": "p278"
+    },
+    {
+      "page": 279,
+      "file": "pages/279.json",
+      "font": "p279"
+    },
+    {
+      "page": 280,
+      "file": "pages/280.json",
+      "font": "p280"
+    },
+    {
+      "page": 281,
+      "file": "pages/281.json",
+      "font": "p281"
+    },
+    {
+      "page": 282,
+      "file": "pages/282.json",
+      "font": "p282"
+    },
+    {
+      "page": 283,
+      "file": "pages/283.json",
+      "font": "p283"
+    },
+    {
+      "page": 284,
+      "file": "pages/284.json",
+      "font": "p284"
+    },
+    {
+      "page": 285,
+      "file": "pages/285.json",
+      "font": "p285"
+    },
+    {
+      "page": 286,
+      "file": "pages/286.json",
+      "font": "p286"
+    },
+    {
+      "page": 287,
+      "file": "pages/287.json",
+      "font": "p287"
+    },
+    {
+      "page": 288,
+      "file": "pages/288.json",
+      "font": "p288"
+    },
+    {
+      "page": 289,
+      "file": "pages/289.json",
+      "font": "p289"
+    },
+    {
+      "page": 290,
+      "file": "pages/290.json",
+      "font": "p290"
+    },
+    {
+      "page": 291,
+      "file": "pages/291.json",
+      "font": "p291"
+    },
+    {
+      "page": 292,
+      "file": "pages/292.json",
+      "font": "p292"
+    },
+    {
+      "page": 293,
+      "file": "pages/293.json",
+      "font": "p293"
+    },
+    {
+      "page": 294,
+      "file": "pages/294.json",
+      "font": "p294"
+    },
+    {
+      "page": 295,
+      "file": "pages/295.json",
+      "font": "p295"
+    },
+    {
+      "page": 296,
+      "file": "pages/296.json",
+      "font": "p296"
+    },
+    {
+      "page": 297,
+      "file": "pages/297.json",
+      "font": "p297"
+    },
+    {
+      "page": 298,
+      "file": "pages/298.json",
+      "font": "p298"
+    },
+    {
+      "page": 299,
+      "file": "pages/299.json",
+      "font": "p299"
+    },
+    {
+      "page": 300,
+      "file": "pages/300.json",
+      "font": "p300"
+    },
+    {
+      "page": 301,
+      "file": "pages/301.json",
+      "font": "p301"
+    },
+    {
+      "page": 302,
+      "file": "pages/302.json",
+      "font": "p302"
+    },
+    {
+      "page": 303,
+      "file": "pages/303.json",
+      "font": "p303"
+    },
+    {
+      "page": 304,
+      "file": "pages/304.json",
+      "font": "p304"
+    },
+    {
+      "page": 305,
+      "file": "pages/305.json",
+      "font": "p305"
+    },
+    {
+      "page": 306,
+      "file": "pages/306.json",
+      "font": "p306"
+    },
+    {
+      "page": 307,
+      "file": "pages/307.json",
+      "font": "p307"
+    },
+    {
+      "page": 308,
+      "file": "pages/308.json",
+      "font": "p308"
+    },
+    {
+      "page": 309,
+      "file": "pages/309.json",
+      "font": "p309"
+    },
+    {
+      "page": 310,
+      "file": "pages/310.json",
+      "font": "p310"
+    },
+    {
+      "page": 311,
+      "file": "pages/311.json",
+      "font": "p311"
+    },
+    {
+      "page": 312,
+      "file": "pages/312.json",
+      "font": "p312"
+    },
+    {
+      "page": 313,
+      "file": "pages/313.json",
+      "font": "p313"
+    },
+    {
+      "page": 314,
+      "file": "pages/314.json",
+      "font": "p314"
+    },
+    {
+      "page": 315,
+      "file": "pages/315.json",
+      "font": "p315"
+    },
+    {
+      "page": 316,
+      "file": "pages/316.json",
+      "font": "p316"
+    },
+    {
+      "page": 317,
+      "file": "pages/317.json",
+      "font": "p317"
+    },
+    {
+      "page": 318,
+      "file": "pages/318.json",
+      "font": "p318"
+    },
+    {
+      "page": 319,
+      "file": "pages/319.json",
+      "font": "p319"
+    },
+    {
+      "page": 320,
+      "file": "pages/320.json",
+      "font": "p320"
+    },
+    {
+      "page": 321,
+      "file": "pages/321.json",
+      "font": "p321"
+    },
+    {
+      "page": 322,
+      "file": "pages/322.json",
+      "font": "p322"
+    },
+    {
+      "page": 323,
+      "file": "pages/323.json",
+      "font": "p323"
+    },
+    {
+      "page": 324,
+      "file": "pages/324.json",
+      "font": "p324"
+    },
+    {
+      "page": 325,
+      "file": "pages/325.json",
+      "font": "p325"
+    },
+    {
+      "page": 326,
+      "file": "pages/326.json",
+      "font": "p326"
+    },
+    {
+      "page": 327,
+      "file": "pages/327.json",
+      "font": "p327"
+    },
+    {
+      "page": 328,
+      "file": "pages/328.json",
+      "font": "p328"
+    },
+    {
+      "page": 329,
+      "file": "pages/329.json",
+      "font": "p329"
+    },
+    {
+      "page": 330,
+      "file": "pages/330.json",
+      "font": "p330"
+    },
+    {
+      "page": 331,
+      "file": "pages/331.json",
+      "font": "p331"
+    },
+    {
+      "page": 332,
+      "file": "pages/332.json",
+      "font": "p332"
+    },
+    {
+      "page": 333,
+      "file": "pages/333.json",
+      "font": "p333"
+    },
+    {
+      "page": 334,
+      "file": "pages/334.json",
+      "font": "p334"
+    },
+    {
+      "page": 335,
+      "file": "pages/335.json",
+      "font": "p335"
+    },
+    {
+      "page": 336,
+      "file": "pages/336.json",
+      "font": "p336"
+    },
+    {
+      "page": 337,
+      "file": "pages/337.json",
+      "font": "p337"
+    },
+    {
+      "page": 338,
+      "file": "pages/338.json",
+      "font": "p338"
+    },
+    {
+      "page": 339,
+      "file": "pages/339.json",
+      "font": "p339"
+    },
+    {
+      "page": 340,
+      "file": "pages/340.json",
+      "font": "p340"
+    },
+    {
+      "page": 341,
+      "file": "pages/341.json",
+      "font": "p341"
+    },
+    {
+      "page": 342,
+      "file": "pages/342.json",
+      "font": "p342"
+    },
+    {
+      "page": 343,
+      "file": "pages/343.json",
+      "font": "p343"
+    },
+    {
+      "page": 344,
+      "file": "pages/344.json",
+      "font": "p344"
+    },
+    {
+      "page": 345,
+      "file": "pages/345.json",
+      "font": "p345"
+    },
+    {
+      "page": 346,
+      "file": "pages/346.json",
+      "font": "p346"
+    },
+    {
+      "page": 347,
+      "file": "pages/347.json",
+      "font": "p347"
+    },
+    {
+      "page": 348,
+      "file": "pages/348.json",
+      "font": "p348"
+    },
+    {
+      "page": 349,
+      "file": "pages/349.json",
+      "font": "p349"
+    },
+    {
+      "page": 350,
+      "file": "pages/350.json",
+      "font": "p350"
+    },
+    {
+      "page": 351,
+      "file": "pages/351.json",
+      "font": "p351"
+    },
+    {
+      "page": 352,
+      "file": "pages/352.json",
+      "font": "p352"
+    },
+    {
+      "page": 353,
+      "file": "pages/353.json",
+      "font": "p353"
+    },
+    {
+      "page": 354,
+      "file": "pages/354.json",
+      "font": "p354"
+    },
+    {
+      "page": 355,
+      "file": "pages/355.json",
+      "font": "p355"
+    },
+    {
+      "page": 356,
+      "file": "pages/356.json",
+      "font": "p356"
+    },
+    {
+      "page": 357,
+      "file": "pages/357.json",
+      "font": "p357"
+    },
+    {
+      "page": 358,
+      "file": "pages/358.json",
+      "font": "p358"
+    },
+    {
+      "page": 359,
+      "file": "pages/359.json",
+      "font": "p359"
+    },
+    {
+      "page": 360,
+      "file": "pages/360.json",
+      "font": "p360"
+    },
+    {
+      "page": 361,
+      "file": "pages/361.json",
+      "font": "p361"
+    },
+    {
+      "page": 362,
+      "file": "pages/362.json",
+      "font": "p362"
+    },
+    {
+      "page": 363,
+      "file": "pages/363.json",
+      "font": "p363"
+    },
+    {
+      "page": 364,
+      "file": "pages/364.json",
+      "font": "p364"
+    },
+    {
+      "page": 365,
+      "file": "pages/365.json",
+      "font": "p365"
+    },
+    {
+      "page": 366,
+      "file": "pages/366.json",
+      "font": "p366"
+    },
+    {
+      "page": 367,
+      "file": "pages/367.json",
+      "font": "p367"
+    },
+    {
+      "page": 368,
+      "file": "pages/368.json",
+      "font": "p368"
+    },
+    {
+      "page": 369,
+      "file": "pages/369.json",
+      "font": "p369"
+    },
+    {
+      "page": 370,
+      "file": "pages/370.json",
+      "font": "p370"
+    },
+    {
+      "page": 371,
+      "file": "pages/371.json",
+      "font": "p371"
+    },
+    {
+      "page": 372,
+      "file": "pages/372.json",
+      "font": "p372"
+    },
+    {
+      "page": 373,
+      "file": "pages/373.json",
+      "font": "p373"
+    },
+    {
+      "page": 374,
+      "file": "pages/374.json",
+      "font": "p374"
+    },
+    {
+      "page": 375,
+      "file": "pages/375.json",
+      "font": "p375"
+    },
+    {
+      "page": 376,
+      "file": "pages/376.json",
+      "font": "p376"
+    },
+    {
+      "page": 377,
+      "file": "pages/377.json",
+      "font": "p377"
+    },
+    {
+      "page": 378,
+      "file": "pages/378.json",
+      "font": "p378"
+    },
+    {
+      "page": 379,
+      "file": "pages/379.json",
+      "font": "p379"
+    },
+    {
+      "page": 380,
+      "file": "pages/380.json",
+      "font": "p380"
+    },
+    {
+      "page": 381,
+      "file": "pages/381.json",
+      "font": "p381"
+    },
+    {
+      "page": 382,
+      "file": "pages/382.json",
+      "font": "p382"
+    },
+    {
+      "page": 383,
+      "file": "pages/383.json",
+      "font": "p383"
+    },
+    {
+      "page": 384,
+      "file": "pages/384.json",
+      "font": "p384"
+    },
+    {
+      "page": 385,
+      "file": "pages/385.json",
+      "font": "p385"
+    },
+    {
+      "page": 386,
+      "file": "pages/386.json",
+      "font": "p386"
+    },
+    {
+      "page": 387,
+      "file": "pages/387.json",
+      "font": "p387"
+    },
+    {
+      "page": 388,
+      "file": "pages/388.json",
+      "font": "p388"
+    },
+    {
+      "page": 389,
+      "file": "pages/389.json",
+      "font": "p389"
+    },
+    {
+      "page": 390,
+      "file": "pages/390.json",
+      "font": "p390"
+    },
+    {
+      "page": 391,
+      "file": "pages/391.json",
+      "font": "p391"
+    },
+    {
+      "page": 392,
+      "file": "pages/392.json",
+      "font": "p392"
+    },
+    {
+      "page": 393,
+      "file": "pages/393.json",
+      "font": "p393"
+    },
+    {
+      "page": 394,
+      "file": "pages/394.json",
+      "font": "p394"
+    },
+    {
+      "page": 395,
+      "file": "pages/395.json",
+      "font": "p395"
+    },
+    {
+      "page": 396,
+      "file": "pages/396.json",
+      "font": "p396"
+    },
+    {
+      "page": 397,
+      "file": "pages/397.json",
+      "font": "p397"
+    },
+    {
+      "page": 398,
+      "file": "pages/398.json",
+      "font": "p398"
+    },
+    {
+      "page": 399,
+      "file": "pages/399.json",
+      "font": "p399"
+    },
+    {
+      "page": 400,
+      "file": "pages/400.json",
+      "font": "p400"
+    },
+    {
+      "page": 401,
+      "file": "pages/401.json",
+      "font": "p401"
+    },
+    {
+      "page": 402,
+      "file": "pages/402.json",
+      "font": "p402"
+    },
+    {
+      "page": 403,
+      "file": "pages/403.json",
+      "font": "p403"
+    },
+    {
+      "page": 404,
+      "file": "pages/404.json",
+      "font": "p404"
+    },
+    {
+      "page": 405,
+      "file": "pages/405.json",
+      "font": "p405"
+    },
+    {
+      "page": 406,
+      "file": "pages/406.json",
+      "font": "p406"
+    },
+    {
+      "page": 407,
+      "file": "pages/407.json",
+      "font": "p407"
+    },
+    {
+      "page": 408,
+      "file": "pages/408.json",
+      "font": "p408"
+    },
+    {
+      "page": 409,
+      "file": "pages/409.json",
+      "font": "p409"
+    },
+    {
+      "page": 410,
+      "file": "pages/410.json",
+      "font": "p410"
+    },
+    {
+      "page": 411,
+      "file": "pages/411.json",
+      "font": "p411"
+    },
+    {
+      "page": 412,
+      "file": "pages/412.json",
+      "font": "p412"
+    },
+    {
+      "page": 413,
+      "file": "pages/413.json",
+      "font": "p413"
+    },
+    {
+      "page": 414,
+      "file": "pages/414.json",
+      "font": "p414"
+    },
+    {
+      "page": 415,
+      "file": "pages/415.json",
+      "font": "p415"
+    },
+    {
+      "page": 416,
+      "file": "pages/416.json",
+      "font": "p416"
+    },
+    {
+      "page": 417,
+      "file": "pages/417.json",
+      "font": "p417"
+    },
+    {
+      "page": 418,
+      "file": "pages/418.json",
+      "font": "p418"
+    },
+    {
+      "page": 419,
+      "file": "pages/419.json",
+      "font": "p419"
+    },
+    {
+      "page": 420,
+      "file": "pages/420.json",
+      "font": "p420"
+    },
+    {
+      "page": 421,
+      "file": "pages/421.json",
+      "font": "p421"
+    },
+    {
+      "page": 422,
+      "file": "pages/422.json",
+      "font": "p422"
+    },
+    {
+      "page": 423,
+      "file": "pages/423.json",
+      "font": "p423"
+    },
+    {
+      "page": 424,
+      "file": "pages/424.json",
+      "font": "p424"
+    },
+    {
+      "page": 425,
+      "file": "pages/425.json",
+      "font": "p425"
+    },
+    {
+      "page": 426,
+      "file": "pages/426.json",
+      "font": "p426"
+    },
+    {
+      "page": 427,
+      "file": "pages/427.json",
+      "font": "p427"
+    },
+    {
+      "page": 428,
+      "file": "pages/428.json",
+      "font": "p428"
+    },
+    {
+      "page": 429,
+      "file": "pages/429.json",
+      "font": "p429"
+    },
+    {
+      "page": 430,
+      "file": "pages/430.json",
+      "font": "p430"
+    },
+    {
+      "page": 431,
+      "file": "pages/431.json",
+      "font": "p431"
+    },
+    {
+      "page": 432,
+      "file": "pages/432.json",
+      "font": "p432"
+    },
+    {
+      "page": 433,
+      "file": "pages/433.json",
+      "font": "p433"
+    },
+    {
+      "page": 434,
+      "file": "pages/434.json",
+      "font": "p434"
+    },
+    {
+      "page": 435,
+      "file": "pages/435.json",
+      "font": "p435"
+    },
+    {
+      "page": 436,
+      "file": "pages/436.json",
+      "font": "p436"
+    },
+    {
+      "page": 437,
+      "file": "pages/437.json",
+      "font": "p437"
+    },
+    {
+      "page": 438,
+      "file": "pages/438.json",
+      "font": "p438"
+    },
+    {
+      "page": 439,
+      "file": "pages/439.json",
+      "font": "p439"
+    },
+    {
+      "page": 440,
+      "file": "pages/440.json",
+      "font": "p440"
+    },
+    {
+      "page": 441,
+      "file": "pages/441.json",
+      "font": "p441"
+    },
+    {
+      "page": 442,
+      "file": "pages/442.json",
+      "font": "p442"
+    },
+    {
+      "page": 443,
+      "file": "pages/443.json",
+      "font": "p443"
+    },
+    {
+      "page": 444,
+      "file": "pages/444.json",
+      "font": "p444"
+    },
+    {
+      "page": 445,
+      "file": "pages/445.json",
+      "font": "p445"
+    },
+    {
+      "page": 446,
+      "file": "pages/446.json",
+      "font": "p446"
+    },
+    {
+      "page": 447,
+      "file": "pages/447.json",
+      "font": "p447"
+    },
+    {
+      "page": 448,
+      "file": "pages/448.json",
+      "font": "p448"
+    },
+    {
+      "page": 449,
+      "file": "pages/449.json",
+      "font": "p449"
+    },
+    {
+      "page": 450,
+      "file": "pages/450.json",
+      "font": "p450"
+    },
+    {
+      "page": 451,
+      "file": "pages/451.json",
+      "font": "p451"
+    },
+    {
+      "page": 452,
+      "file": "pages/452.json",
+      "font": "p452"
+    },
+    {
+      "page": 453,
+      "file": "pages/453.json",
+      "font": "p453"
+    },
+    {
+      "page": 454,
+      "file": "pages/454.json",
+      "font": "p454"
+    },
+    {
+      "page": 455,
+      "file": "pages/455.json",
+      "font": "p455"
+    },
+    {
+      "page": 456,
+      "file": "pages/456.json",
+      "font": "p456"
+    },
+    {
+      "page": 457,
+      "file": "pages/457.json",
+      "font": "p457"
+    },
+    {
+      "page": 458,
+      "file": "pages/458.json",
+      "font": "p458"
+    },
+    {
+      "page": 459,
+      "file": "pages/459.json",
+      "font": "p459"
+    },
+    {
+      "page": 460,
+      "file": "pages/460.json",
+      "font": "p460"
+    },
+    {
+      "page": 461,
+      "file": "pages/461.json",
+      "font": "p461"
+    },
+    {
+      "page": 462,
+      "file": "pages/462.json",
+      "font": "p462"
+    },
+    {
+      "page": 463,
+      "file": "pages/463.json",
+      "font": "p463"
+    },
+    {
+      "page": 464,
+      "file": "pages/464.json",
+      "font": "p464"
+    },
+    {
+      "page": 465,
+      "file": "pages/465.json",
+      "font": "p465"
+    },
+    {
+      "page": 466,
+      "file": "pages/466.json",
+      "font": "p466"
+    },
+    {
+      "page": 467,
+      "file": "pages/467.json",
+      "font": "p467"
+    },
+    {
+      "page": 468,
+      "file": "pages/468.json",
+      "font": "p468"
+    },
+    {
+      "page": 469,
+      "file": "pages/469.json",
+      "font": "p469"
+    },
+    {
+      "page": 470,
+      "file": "pages/470.json",
+      "font": "p470"
+    },
+    {
+      "page": 471,
+      "file": "pages/471.json",
+      "font": "p471"
+    },
+    {
+      "page": 472,
+      "file": "pages/472.json",
+      "font": "p472"
+    },
+    {
+      "page": 473,
+      "file": "pages/473.json",
+      "font": "p473"
+    },
+    {
+      "page": 474,
+      "file": "pages/474.json",
+      "font": "p474"
+    },
+    {
+      "page": 475,
+      "file": "pages/475.json",
+      "font": "p475"
+    },
+    {
+      "page": 476,
+      "file": "pages/476.json",
+      "font": "p476"
+    },
+    {
+      "page": 477,
+      "file": "pages/477.json",
+      "font": "p477"
+    },
+    {
+      "page": 478,
+      "file": "pages/478.json",
+      "font": "p478"
+    },
+    {
+      "page": 479,
+      "file": "pages/479.json",
+      "font": "p479"
+    },
+    {
+      "page": 480,
+      "file": "pages/480.json",
+      "font": "p480"
+    },
+    {
+      "page": 481,
+      "file": "pages/481.json",
+      "font": "p481"
+    },
+    {
+      "page": 482,
+      "file": "pages/482.json",
+      "font": "p482"
+    },
+    {
+      "page": 483,
+      "file": "pages/483.json",
+      "font": "p483"
+    },
+    {
+      "page": 484,
+      "file": "pages/484.json",
+      "font": "p484"
+    },
+    {
+      "page": 485,
+      "file": "pages/485.json",
+      "font": "p485"
+    },
+    {
+      "page": 486,
+      "file": "pages/486.json",
+      "font": "p486"
+    },
+    {
+      "page": 487,
+      "file": "pages/487.json",
+      "font": "p487"
+    },
+    {
+      "page": 488,
+      "file": "pages/488.json",
+      "font": "p488"
+    },
+    {
+      "page": 489,
+      "file": "pages/489.json",
+      "font": "p489"
+    },
+    {
+      "page": 490,
+      "file": "pages/490.json",
+      "font": "p490"
+    },
+    {
+      "page": 491,
+      "file": "pages/491.json",
+      "font": "p491"
+    },
+    {
+      "page": 492,
+      "file": "pages/492.json",
+      "font": "p492"
+    },
+    {
+      "page": 493,
+      "file": "pages/493.json",
+      "font": "p493"
+    },
+    {
+      "page": 494,
+      "file": "pages/494.json",
+      "font": "p494"
+    },
+    {
+      "page": 495,
+      "file": "pages/495.json",
+      "font": "p495"
+    },
+    {
+      "page": 496,
+      "file": "pages/496.json",
+      "font": "p496"
+    },
+    {
+      "page": 497,
+      "file": "pages/497.json",
+      "font": "p497"
+    },
+    {
+      "page": 498,
+      "file": "pages/498.json",
+      "font": "p498"
+    },
+    {
+      "page": 499,
+      "file": "pages/499.json",
+      "font": "p499"
+    },
+    {
+      "page": 500,
+      "file": "pages/500.json",
+      "font": "p500"
+    },
+    {
+      "page": 501,
+      "file": "pages/501.json",
+      "font": "p501"
+    },
+    {
+      "page": 502,
+      "file": "pages/502.json",
+      "font": "p502"
+    },
+    {
+      "page": 503,
+      "file": "pages/503.json",
+      "font": "p503"
+    },
+    {
+      "page": 504,
+      "file": "pages/504.json",
+      "font": "p504"
+    },
+    {
+      "page": 505,
+      "file": "pages/505.json",
+      "font": "p505"
+    },
+    {
+      "page": 506,
+      "file": "pages/506.json",
+      "font": "p506"
+    },
+    {
+      "page": 507,
+      "file": "pages/507.json",
+      "font": "p507"
+    },
+    {
+      "page": 508,
+      "file": "pages/508.json",
+      "font": "p508"
+    },
+    {
+      "page": 509,
+      "file": "pages/509.json",
+      "font": "p509"
+    },
+    {
+      "page": 510,
+      "file": "pages/510.json",
+      "font": "p510"
+    },
+    {
+      "page": 511,
+      "file": "pages/511.json",
+      "font": "p511"
+    },
+    {
+      "page": 512,
+      "file": "pages/512.json",
+      "font": "p512"
+    },
+    {
+      "page": 513,
+      "file": "pages/513.json",
+      "font": "p513"
+    },
+    {
+      "page": 514,
+      "file": "pages/514.json",
+      "font": "p514"
+    },
+    {
+      "page": 515,
+      "file": "pages/515.json",
+      "font": "p515"
+    },
+    {
+      "page": 516,
+      "file": "pages/516.json",
+      "font": "p516"
+    },
+    {
+      "page": 517,
+      "file": "pages/517.json",
+      "font": "p517"
+    },
+    {
+      "page": 518,
+      "file": "pages/518.json",
+      "font": "p518"
+    },
+    {
+      "page": 519,
+      "file": "pages/519.json",
+      "font": "p519"
+    },
+    {
+      "page": 520,
+      "file": "pages/520.json",
+      "font": "p520"
+    },
+    {
+      "page": 521,
+      "file": "pages/521.json",
+      "font": "p521"
+    },
+    {
+      "page": 522,
+      "file": "pages/522.json",
+      "font": "p522"
+    },
+    {
+      "page": 523,
+      "file": "pages/523.json",
+      "font": "p523"
+    },
+    {
+      "page": 524,
+      "file": "pages/524.json",
+      "font": "p524"
+    },
+    {
+      "page": 525,
+      "file": "pages/525.json",
+      "font": "p525"
+    },
+    {
+      "page": 526,
+      "file": "pages/526.json",
+      "font": "p526"
+    },
+    {
+      "page": 527,
+      "file": "pages/527.json",
+      "font": "p527"
+    },
+    {
+      "page": 528,
+      "file": "pages/528.json",
+      "font": "p528"
+    },
+    {
+      "page": 529,
+      "file": "pages/529.json",
+      "font": "p529"
+    },
+    {
+      "page": 530,
+      "file": "pages/530.json",
+      "font": "p530"
+    },
+    {
+      "page": 531,
+      "file": "pages/531.json",
+      "font": "p531"
+    },
+    {
+      "page": 532,
+      "file": "pages/532.json",
+      "font": "p532"
+    },
+    {
+      "page": 533,
+      "file": "pages/533.json",
+      "font": "p533"
+    },
+    {
+      "page": 534,
+      "file": "pages/534.json",
+      "font": "p534"
+    },
+    {
+      "page": 535,
+      "file": "pages/535.json",
+      "font": "p535"
+    },
+    {
+      "page": 536,
+      "file": "pages/536.json",
+      "font": "p536"
+    },
+    {
+      "page": 537,
+      "file": "pages/537.json",
+      "font": "p537"
+    },
+    {
+      "page": 538,
+      "file": "pages/538.json",
+      "font": "p538"
+    },
+    {
+      "page": 539,
+      "file": "pages/539.json",
+      "font": "p539"
+    },
+    {
+      "page": 540,
+      "file": "pages/540.json",
+      "font": "p540"
+    },
+    {
+      "page": 541,
+      "file": "pages/541.json",
+      "font": "p541"
+    },
+    {
+      "page": 542,
+      "file": "pages/542.json",
+      "font": "p542"
+    },
+    {
+      "page": 543,
+      "file": "pages/543.json",
+      "font": "p543"
+    },
+    {
+      "page": 544,
+      "file": "pages/544.json",
+      "font": "p544"
+    },
+    {
+      "page": 545,
+      "file": "pages/545.json",
+      "font": "p545"
+    },
+    {
+      "page": 546,
+      "file": "pages/546.json",
+      "font": "p546"
+    },
+    {
+      "page": 547,
+      "file": "pages/547.json",
+      "font": "p547"
+    },
+    {
+      "page": 548,
+      "file": "pages/548.json",
+      "font": "p548"
+    },
+    {
+      "page": 549,
+      "file": "pages/549.json",
+      "font": "p549"
+    },
+    {
+      "page": 550,
+      "file": "pages/550.json",
+      "font": "p550"
+    },
+    {
+      "page": 551,
+      "file": "pages/551.json",
+      "font": "p551"
+    },
+    {
+      "page": 552,
+      "file": "pages/552.json",
+      "font": "p552"
+    },
+    {
+      "page": 553,
+      "file": "pages/553.json",
+      "font": "p553"
+    },
+    {
+      "page": 554,
+      "file": "pages/554.json",
+      "font": "p554"
+    },
+    {
+      "page": 555,
+      "file": "pages/555.json",
+      "font": "p555"
+    },
+    {
+      "page": 556,
+      "file": "pages/556.json",
+      "font": "p556"
+    },
+    {
+      "page": 557,
+      "file": "pages/557.json",
+      "font": "p557"
+    },
+    {
+      "page": 558,
+      "file": "pages/558.json",
+      "font": "p558"
+    },
+    {
+      "page": 559,
+      "file": "pages/559.json",
+      "font": "p559"
+    },
+    {
+      "page": 560,
+      "file": "pages/560.json",
+      "font": "p560"
+    },
+    {
+      "page": 561,
+      "file": "pages/561.json",
+      "font": "p561"
+    },
+    {
+      "page": 562,
+      "file": "pages/562.json",
+      "font": "p562"
+    },
+    {
+      "page": 563,
+      "file": "pages/563.json",
+      "font": "p563"
+    },
+    {
+      "page": 564,
+      "file": "pages/564.json",
+      "font": "p564"
+    },
+    {
+      "page": 565,
+      "file": "pages/565.json",
+      "font": "p565"
+    },
+    {
+      "page": 566,
+      "file": "pages/566.json",
+      "font": "p566"
+    },
+    {
+      "page": 567,
+      "file": "pages/567.json",
+      "font": "p567"
+    },
+    {
+      "page": 568,
+      "file": "pages/568.json",
+      "font": "p568"
+    },
+    {
+      "page": 569,
+      "file": "pages/569.json",
+      "font": "p569"
+    },
+    {
+      "page": 570,
+      "file": "pages/570.json",
+      "font": "p570"
+    },
+    {
+      "page": 571,
+      "file": "pages/571.json",
+      "font": "p571"
+    },
+    {
+      "page": 572,
+      "file": "pages/572.json",
+      "font": "p572"
+    },
+    {
+      "page": 573,
+      "file": "pages/573.json",
+      "font": "p573"
+    },
+    {
+      "page": 574,
+      "file": "pages/574.json",
+      "font": "p574"
+    },
+    {
+      "page": 575,
+      "file": "pages/575.json",
+      "font": "p575"
+    },
+    {
+      "page": 576,
+      "file": "pages/576.json",
+      "font": "p576"
+    },
+    {
+      "page": 577,
+      "file": "pages/577.json",
+      "font": "p577"
+    },
+    {
+      "page": 578,
+      "file": "pages/578.json",
+      "font": "p578"
+    },
+    {
+      "page": 579,
+      "file": "pages/579.json",
+      "font": "p579"
+    },
+    {
+      "page": 580,
+      "file": "pages/580.json",
+      "font": "p580"
+    },
+    {
+      "page": 581,
+      "file": "pages/581.json",
+      "font": "p581"
+    },
+    {
+      "page": 582,
+      "file": "pages/582.json",
+      "font": "p582"
+    },
+    {
+      "page": 583,
+      "file": "pages/583.json",
+      "font": "p583"
+    },
+    {
+      "page": 584,
+      "file": "pages/584.json",
+      "font": "p584"
+    },
+    {
+      "page": 585,
+      "file": "pages/585.json",
+      "font": "p585"
+    },
+    {
+      "page": 586,
+      "file": "pages/586.json",
+      "font": "p586"
+    },
+    {
+      "page": 587,
+      "file": "pages/587.json",
+      "font": "p587"
+    },
+    {
+      "page": 588,
+      "file": "pages/588.json",
+      "font": "p588"
+    },
+    {
+      "page": 589,
+      "file": "pages/589.json",
+      "font": "p589"
+    },
+    {
+      "page": 590,
+      "file": "pages/590.json",
+      "font": "p590"
+    },
+    {
+      "page": 591,
+      "file": "pages/591.json",
+      "font": "p591"
+    },
+    {
+      "page": 592,
+      "file": "pages/592.json",
+      "font": "p592"
+    },
+    {
+      "page": 593,
+      "file": "pages/593.json",
+      "font": "p593"
+    },
+    {
+      "page": 594,
+      "file": "pages/594.json",
+      "font": "p594"
+    },
+    {
+      "page": 595,
+      "file": "pages/595.json",
+      "font": "p595"
+    },
+    {
+      "page": 596,
+      "file": "pages/596.json",
+      "font": "p596"
+    },
+    {
+      "page": 597,
+      "file": "pages/597.json",
+      "font": "p597"
+    },
+    {
+      "page": 598,
+      "file": "pages/598.json",
+      "font": "p598"
+    },
+    {
+      "page": 599,
+      "file": "pages/599.json",
+      "font": "p599"
+    },
+    {
+      "page": 600,
+      "file": "pages/600.json",
+      "font": "p600"
+    },
+    {
+      "page": 601,
+      "file": "pages/601.json",
+      "font": "p601"
+    },
+    {
+      "page": 602,
+      "file": "pages/602.json",
+      "font": "p602"
+    },
+    {
+      "page": 603,
+      "file": "pages/603.json",
+      "font": "p603"
+    },
+    {
+      "page": 604,
+      "file": "pages/604.json",
+      "font": "p604"
+    }
+  ],
+  "surahs": [
+    {
+      "surah": 1,
+      "name_arabic": "الفاتحة",
+      "name_simple": "Al-Fatihah",
+      "pages": [
+        1
+      ],
+      "file": "surahs/001.json"
+    },
+    {
+      "surah": 2,
+      "name_arabic": "البقرة",
+      "name_simple": "Al-Baqarah",
+      "pages": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "file": "surahs/002.json"
+    },
+    {
+      "surah": 3,
+      "name_arabic": "آل عمران",
+      "name_simple": "Ali 'Imran",
+      "pages": [
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76
+      ],
+      "file": "surahs/003.json"
+    },
+    {
+      "surah": 4,
+      "name_arabic": "النساء",
+      "name_simple": "An-Nisa",
+      "pages": [
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106
+      ],
+      "file": "surahs/004.json"
+    },
+    {
+      "surah": 5,
+      "name_arabic": "المائدة",
+      "name_simple": "Al-Ma'idah",
+      "pages": [
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127
+      ],
+      "file": "surahs/005.json"
+    },
+    {
+      "surah": 6,
+      "name_arabic": "الأنعام",
+      "name_simple": "Al-An'am",
+      "pages": [
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150
+      ],
+      "file": "surahs/006.json"
+    },
+    {
+      "surah": 7,
+      "name_arabic": "الأعراف",
+      "name_simple": "Al-A'raf",
+      "pages": [
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176
+      ],
+      "file": "surahs/007.json"
+    },
+    {
+      "surah": 8,
+      "name_arabic": "الأنفال",
+      "name_simple": "Al-Anfal",
+      "pages": [
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186
+      ],
+      "file": "surahs/008.json"
+    },
+    {
+      "surah": 9,
+      "name_arabic": "التوبة",
+      "name_simple": "At-Tawbah",
+      "pages": [
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207
+      ],
+      "file": "surahs/009.json"
+    },
+    {
+      "surah": 10,
+      "name_arabic": "يونس",
+      "name_simple": "Yunus",
+      "pages": [
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221
+      ],
+      "file": "surahs/010.json"
+    },
+    {
+      "surah": 11,
+      "name_arabic": "هود",
+      "name_simple": "Hud",
+      "pages": [
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235
+      ],
+      "file": "surahs/011.json"
+    },
+    {
+      "surah": 12,
+      "name_arabic": "يوسف",
+      "name_simple": "Yusuf",
+      "pages": [
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248
+      ],
+      "file": "surahs/012.json"
+    },
+    {
+      "surah": 13,
+      "name_arabic": "الرعد",
+      "name_simple": "Ar-Ra'd",
+      "pages": [
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "file": "surahs/013.json"
+    },
+    {
+      "surah": 14,
+      "name_arabic": "ابراهيم",
+      "name_simple": "Ibrahim",
+      "pages": [
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261
+      ],
+      "file": "surahs/014.json"
+    },
+    {
+      "surah": 15,
+      "name_arabic": "الحجر",
+      "name_simple": "Al-Hijr",
+      "pages": [
+        262,
+        263,
+        264,
+        265,
+        266,
+        267
+      ],
+      "file": "surahs/015.json"
+    },
+    {
+      "surah": 16,
+      "name_arabic": "النحل",
+      "name_simple": "An-Nahl",
+      "pages": [
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281
+      ],
+      "file": "surahs/016.json"
+    },
+    {
+      "surah": 17,
+      "name_arabic": "الإسراء",
+      "name_simple": "Al-Isra",
+      "pages": [
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293
+      ],
+      "file": "surahs/017.json"
+    },
+    {
+      "surah": 18,
+      "name_arabic": "الكهف",
+      "name_simple": "Al-Kahf",
+      "pages": [
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302,
+        303,
+        304
+      ],
+      "file": "surahs/018.json"
+    },
+    {
+      "surah": 19,
+      "name_arabic": "مريم",
+      "name_simple": "Maryam",
+      "pages": [
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312
+      ],
+      "file": "surahs/019.json"
+    },
+    {
+      "surah": 20,
+      "name_arabic": "طه",
+      "name_simple": "Taha",
+      "pages": [
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321
+      ],
+      "file": "surahs/020.json"
+    },
+    {
+      "surah": 21,
+      "name_arabic": "الأنبياء",
+      "name_simple": "Al-Anbya",
+      "pages": [
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331
+      ],
+      "file": "surahs/021.json"
+    },
+    {
+      "surah": 22,
+      "name_arabic": "الحج",
+      "name_simple": "Al-Hajj",
+      "pages": [
+        332,
+        333,
+        334,
+        335,
+        336,
+        337,
+        338,
+        339,
+        340,
+        341
+      ],
+      "file": "surahs/022.json"
+    },
+    {
+      "surah": 23,
+      "name_arabic": "المؤمنون",
+      "name_simple": "Al-Mu'minun",
+      "pages": [
+        342,
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349
+      ],
+      "file": "surahs/023.json"
+    },
+    {
+      "surah": 24,
+      "name_arabic": "النور",
+      "name_simple": "An-Nur",
+      "pages": [
+        350,
+        351,
+        352,
+        353,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359
+      ],
+      "file": "surahs/024.json"
+    },
+    {
+      "surah": 25,
+      "name_arabic": "الفرقان",
+      "name_simple": "Al-Furqan",
+      "pages": [
+        359,
+        360,
+        361,
+        362,
+        363,
+        364,
+        365,
+        366
+      ],
+      "file": "surahs/025.json"
+    },
+    {
+      "surah": 26,
+      "name_arabic": "الشعراء",
+      "name_simple": "Ash-Shu'ara",
+      "pages": [
+        367,
+        368,
+        369,
+        370,
+        371,
+        372,
+        373,
+        374,
+        375,
+        376
+      ],
+      "file": "surahs/026.json"
+    },
+    {
+      "surah": 27,
+      "name_arabic": "النمل",
+      "name_simple": "An-Naml",
+      "pages": [
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385
+      ],
+      "file": "surahs/027.json"
+    },
+    {
+      "surah": 28,
+      "name_arabic": "القصص",
+      "name_simple": "Al-Qasas",
+      "pages": [
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396
+      ],
+      "file": "surahs/028.json"
+    },
+    {
+      "surah": 29,
+      "name_arabic": "العنكبوت",
+      "name_simple": "Al-'Ankabut",
+      "pages": [
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404
+      ],
+      "file": "surahs/029.json"
+    },
+    {
+      "surah": 30,
+      "name_arabic": "الروم",
+      "name_simple": "Ar-Rum",
+      "pages": [
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410
+      ],
+      "file": "surahs/030.json"
+    },
+    {
+      "surah": 31,
+      "name_arabic": "لقمان",
+      "name_simple": "Luqman",
+      "pages": [
+        411,
+        412,
+        413,
+        414
+      ],
+      "file": "surahs/031.json"
+    },
+    {
+      "surah": 32,
+      "name_arabic": "السجدة",
+      "name_simple": "As-Sajdah",
+      "pages": [
+        415,
+        416,
+        417
+      ],
+      "file": "surahs/032.json"
+    },
+    {
+      "surah": 33,
+      "name_arabic": "الأحزاب",
+      "name_simple": "Al-Ahzab",
+      "pages": [
+        418,
+        419,
+        420,
+        421,
+        422,
+        423,
+        424,
+        425,
+        426,
+        427
+      ],
+      "file": "surahs/033.json"
+    },
+    {
+      "surah": 34,
+      "name_arabic": "سبإ",
+      "name_simple": "Saba",
+      "pages": [
+        428,
+        429,
+        430,
+        431,
+        432,
+        433,
+        434
+      ],
+      "file": "surahs/034.json"
+    },
+    {
+      "surah": 35,
+      "name_arabic": "فاطر",
+      "name_simple": "Fatir",
+      "pages": [
+        434,
+        435,
+        436,
+        437,
+        438,
+        439,
+        440
+      ],
+      "file": "surahs/035.json"
+    },
+    {
+      "surah": 36,
+      "name_arabic": "يس",
+      "name_simple": "Ya-Sin",
+      "pages": [
+        440,
+        441,
+        442,
+        443,
+        444,
+        445
+      ],
+      "file": "surahs/036.json"
+    },
+    {
+      "surah": 37,
+      "name_arabic": "الصافات",
+      "name_simple": "As-Saffat",
+      "pages": [
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452
+      ],
+      "file": "surahs/037.json"
+    },
+    {
+      "surah": 38,
+      "name_arabic": "ص",
+      "name_simple": "Sad",
+      "pages": [
+        453,
+        454,
+        455,
+        456,
+        457,
+        458
+      ],
+      "file": "surahs/038.json"
+    },
+    {
+      "surah": 39,
+      "name_arabic": "الزمر",
+      "name_simple": "Az-Zumar",
+      "pages": [
+        458,
+        459,
+        460,
+        461,
+        462,
+        463,
+        464,
+        465,
+        466,
+        467
+      ],
+      "file": "surahs/039.json"
+    },
+    {
+      "surah": 40,
+      "name_arabic": "غافر",
+      "name_simple": "Ghafir",
+      "pages": [
+        467,
+        468,
+        469,
+        470,
+        471,
+        472,
+        473,
+        474,
+        475,
+        476
+      ],
+      "file": "surahs/040.json"
+    },
+    {
+      "surah": 41,
+      "name_arabic": "فصلت",
+      "name_simple": "Fussilat",
+      "pages": [
+        477,
+        478,
+        479,
+        480,
+        481,
+        482
+      ],
+      "file": "surahs/041.json"
+    },
+    {
+      "surah": 42,
+      "name_arabic": "الشورى",
+      "name_simple": "Ash-Shuraa",
+      "pages": [
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        489
+      ],
+      "file": "surahs/042.json"
+    },
+    {
+      "surah": 43,
+      "name_arabic": "الزخرف",
+      "name_simple": "Az-Zukhruf",
+      "pages": [
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495
+      ],
+      "file": "surahs/043.json"
+    },
+    {
+      "surah": 44,
+      "name_arabic": "الدخان",
+      "name_simple": "Ad-Dukhan",
+      "pages": [
+        496,
+        497,
+        498
+      ],
+      "file": "surahs/044.json"
+    },
+    {
+      "surah": 45,
+      "name_arabic": "الجاثية",
+      "name_simple": "Al-Jathiyah",
+      "pages": [
+        499,
+        500,
+        501,
+        502
+      ],
+      "file": "surahs/045.json"
+    },
+    {
+      "surah": 46,
+      "name_arabic": "الأحقاف",
+      "name_simple": "Al-Ahqaf",
+      "pages": [
+        502,
+        503,
+        504,
+        505,
+        506
+      ],
+      "file": "surahs/046.json"
+    },
+    {
+      "surah": 47,
+      "name_arabic": "محمد",
+      "name_simple": "Muhammad",
+      "pages": [
+        507,
+        508,
+        509,
+        510
+      ],
+      "file": "surahs/047.json"
+    },
+    {
+      "surah": 48,
+      "name_arabic": "الفتح",
+      "name_simple": "Al-Fath",
+      "pages": [
+        511,
+        512,
+        513,
+        514,
+        515
+      ],
+      "file": "surahs/048.json"
+    },
+    {
+      "surah": 49,
+      "name_arabic": "الحجرات",
+      "name_simple": "Al-Hujurat",
+      "pages": [
+        515,
+        516,
+        517
+      ],
+      "file": "surahs/049.json"
+    },
+    {
+      "surah": 50,
+      "name_arabic": "ق",
+      "name_simple": "Qaf",
+      "pages": [
+        518,
+        519,
+        520
+      ],
+      "file": "surahs/050.json"
+    },
+    {
+      "surah": 51,
+      "name_arabic": "الذاريات",
+      "name_simple": "Adh-Dhariyat",
+      "pages": [
+        520,
+        521,
+        522,
+        523
+      ],
+      "file": "surahs/051.json"
+    },
+    {
+      "surah": 52,
+      "name_arabic": "الطور",
+      "name_simple": "At-Tur",
+      "pages": [
+        523,
+        524,
+        525
+      ],
+      "file": "surahs/052.json"
+    },
+    {
+      "surah": 53,
+      "name_arabic": "النجم",
+      "name_simple": "An-Najm",
+      "pages": [
+        526,
+        527,
+        528
+      ],
+      "file": "surahs/053.json"
+    },
+    {
+      "surah": 54,
+      "name_arabic": "القمر",
+      "name_simple": "Al-Qamar",
+      "pages": [
+        528,
+        529,
+        530,
+        531
+      ],
+      "file": "surahs/054.json"
+    },
+    {
+      "surah": 55,
+      "name_arabic": "الرحمن",
+      "name_simple": "Ar-Rahman",
+      "pages": [
+        531,
+        532,
+        533,
+        534
+      ],
+      "file": "surahs/055.json"
+    },
+    {
+      "surah": 56,
+      "name_arabic": "الواقعة",
+      "name_simple": "Al-Waqi'ah",
+      "pages": [
+        534,
+        535,
+        536,
+        537
+      ],
+      "file": "surahs/056.json"
+    },
+    {
+      "surah": 57,
+      "name_arabic": "الحديد",
+      "name_simple": "Al-Hadid",
+      "pages": [
+        537,
+        538,
+        539,
+        540,
+        541
+      ],
+      "file": "surahs/057.json"
+    },
+    {
+      "surah": 58,
+      "name_arabic": "المجادلة",
+      "name_simple": "Al-Mujadila",
+      "pages": [
+        542,
+        543,
+        544,
+        545
+      ],
+      "file": "surahs/058.json"
+    },
+    {
+      "surah": 59,
+      "name_arabic": "الحشر",
+      "name_simple": "Al-Hashr",
+      "pages": [
+        545,
+        546,
+        547,
+        548
+      ],
+      "file": "surahs/059.json"
+    },
+    {
+      "surah": 60,
+      "name_arabic": "الممتحنة",
+      "name_simple": "Al-Mumtahanah",
+      "pages": [
+        549,
+        550,
+        551
+      ],
+      "file": "surahs/060.json"
+    },
+    {
+      "surah": 61,
+      "name_arabic": "الصف",
+      "name_simple": "As-Saf",
+      "pages": [
+        551,
+        552
+      ],
+      "file": "surahs/061.json"
+    },
+    {
+      "surah": 62,
+      "name_arabic": "الجمعة",
+      "name_simple": "Al-Jumu'ah",
+      "pages": [
+        553,
+        554
+      ],
+      "file": "surahs/062.json"
+    },
+    {
+      "surah": 63,
+      "name_arabic": "المنافقون",
+      "name_simple": "Al-Munafiqun",
+      "pages": [
+        554,
+        555
+      ],
+      "file": "surahs/063.json"
+    },
+    {
+      "surah": 64,
+      "name_arabic": "التغابن",
+      "name_simple": "At-Taghabun",
+      "pages": [
+        556,
+        557
+      ],
+      "file": "surahs/064.json"
+    },
+    {
+      "surah": 65,
+      "name_arabic": "الطلاق",
+      "name_simple": "At-Talaq",
+      "pages": [
+        558,
+        559
+      ],
+      "file": "surahs/065.json"
+    },
+    {
+      "surah": 66,
+      "name_arabic": "التحريم",
+      "name_simple": "At-Tahrim",
+      "pages": [
+        560,
+        561
+      ],
+      "file": "surahs/066.json"
+    },
+    {
+      "surah": 67,
+      "name_arabic": "الملك",
+      "name_simple": "Al-Mulk",
+      "pages": [
+        562,
+        563,
+        564
+      ],
+      "file": "surahs/067.json"
+    },
+    {
+      "surah": 68,
+      "name_arabic": "القلم",
+      "name_simple": "Al-Qalam",
+      "pages": [
+        564,
+        565,
+        566
+      ],
+      "file": "surahs/068.json"
+    },
+    {
+      "surah": 69,
+      "name_arabic": "الحاقة",
+      "name_simple": "Al-Haqqah",
+      "pages": [
+        566,
+        567,
+        568
+      ],
+      "file": "surahs/069.json"
+    },
+    {
+      "surah": 70,
+      "name_arabic": "المعارج",
+      "name_simple": "Al-Ma'arij",
+      "pages": [
+        568,
+        569,
+        570
+      ],
+      "file": "surahs/070.json"
+    },
+    {
+      "surah": 71,
+      "name_arabic": "نوح",
+      "name_simple": "Nuh",
+      "pages": [
+        570,
+        571
+      ],
+      "file": "surahs/071.json"
+    },
+    {
+      "surah": 72,
+      "name_arabic": "الجن",
+      "name_simple": "Al-Jinn",
+      "pages": [
+        572,
+        573
+      ],
+      "file": "surahs/072.json"
+    },
+    {
+      "surah": 73,
+      "name_arabic": "المزمل",
+      "name_simple": "Al-Muzzammil",
+      "pages": [
+        574,
+        575
+      ],
+      "file": "surahs/073.json"
+    },
+    {
+      "surah": 74,
+      "name_arabic": "المدثر",
+      "name_simple": "Al-Muddaththir",
+      "pages": [
+        575,
+        576,
+        577
+      ],
+      "file": "surahs/074.json"
+    },
+    {
+      "surah": 75,
+      "name_arabic": "القيامة",
+      "name_simple": "Al-Qiyamah",
+      "pages": [
+        577,
+        578
+      ],
+      "file": "surahs/075.json"
+    },
+    {
+      "surah": 76,
+      "name_arabic": "الانسان",
+      "name_simple": "Al-Insan",
+      "pages": [
+        578,
+        579,
+        580
+      ],
+      "file": "surahs/076.json"
+    },
+    {
+      "surah": 77,
+      "name_arabic": "المرسلات",
+      "name_simple": "Al-Mursalat",
+      "pages": [
+        580,
+        581
+      ],
+      "file": "surahs/077.json"
+    },
+    {
+      "surah": 78,
+      "name_arabic": "النبإ",
+      "name_simple": "An-Naba",
+      "pages": [
+        582,
+        583
+      ],
+      "file": "surahs/078.json"
+    },
+    {
+      "surah": 79,
+      "name_arabic": "النازعات",
+      "name_simple": "An-Nazi'at",
+      "pages": [
+        583,
+        584
+      ],
+      "file": "surahs/079.json"
+    },
+    {
+      "surah": 80,
+      "name_arabic": "عبس",
+      "name_simple": "'Abasa",
+      "pages": [
+        585
+      ],
+      "file": "surahs/080.json"
+    },
+    {
+      "surah": 81,
+      "name_arabic": "التكوير",
+      "name_simple": "At-Takwir",
+      "pages": [
+        586
+      ],
+      "file": "surahs/081.json"
+    },
+    {
+      "surah": 82,
+      "name_arabic": "الإنفطار",
+      "name_simple": "Al-Infitar",
+      "pages": [
+        587
+      ],
+      "file": "surahs/082.json"
+    },
+    {
+      "surah": 83,
+      "name_arabic": "المطففين",
+      "name_simple": "Al-Mutaffifin",
+      "pages": [
+        587,
+        588,
+        589
+      ],
+      "file": "surahs/083.json"
+    },
+    {
+      "surah": 84,
+      "name_arabic": "الإنشقاق",
+      "name_simple": "Al-Inshiqaq",
+      "pages": [
+        589
+      ],
+      "file": "surahs/084.json"
+    },
+    {
+      "surah": 85,
+      "name_arabic": "البروج",
+      "name_simple": "Al-Buruj",
+      "pages": [
+        590
+      ],
+      "file": "surahs/085.json"
+    },
+    {
+      "surah": 86,
+      "name_arabic": "الطارق",
+      "name_simple": "At-Tariq",
+      "pages": [
+        591
+      ],
+      "file": "surahs/086.json"
+    },
+    {
+      "surah": 87,
+      "name_arabic": "الأعلى",
+      "name_simple": "Al-A'la",
+      "pages": [
+        591,
+        592
+      ],
+      "file": "surahs/087.json"
+    },
+    {
+      "surah": 88,
+      "name_arabic": "الغاشية",
+      "name_simple": "Al-Ghashiyah",
+      "pages": [
+        592
+      ],
+      "file": "surahs/088.json"
+    },
+    {
+      "surah": 89,
+      "name_arabic": "الفجر",
+      "name_simple": "Al-Fajr",
+      "pages": [
+        593,
+        594
+      ],
+      "file": "surahs/089.json"
+    },
+    {
+      "surah": 90,
+      "name_arabic": "البلد",
+      "name_simple": "Al-Balad",
+      "pages": [
+        594
+      ],
+      "file": "surahs/090.json"
+    },
+    {
+      "surah": 91,
+      "name_arabic": "الشمس",
+      "name_simple": "Ash-Shams",
+      "pages": [
+        595
+      ],
+      "file": "surahs/091.json"
+    },
+    {
+      "surah": 92,
+      "name_arabic": "الليل",
+      "name_simple": "Al-Layl",
+      "pages": [
+        595,
+        596
+      ],
+      "file": "surahs/092.json"
+    },
+    {
+      "surah": 93,
+      "name_arabic": "الضحى",
+      "name_simple": "Ad-Duhaa",
+      "pages": [
+        596
+      ],
+      "file": "surahs/093.json"
+    },
+    {
+      "surah": 94,
+      "name_arabic": "الشرح",
+      "name_simple": "Ash-Sharh",
+      "pages": [
+        596
+      ],
+      "file": "surahs/094.json"
+    },
+    {
+      "surah": 95,
+      "name_arabic": "التين",
+      "name_simple": "At-Tin",
+      "pages": [
+        597
+      ],
+      "file": "surahs/095.json"
+    },
+    {
+      "surah": 96,
+      "name_arabic": "العلق",
+      "name_simple": "Al-'Alaq",
+      "pages": [
+        597
+      ],
+      "file": "surahs/096.json"
+    },
+    {
+      "surah": 97,
+      "name_arabic": "القدر",
+      "name_simple": "Al-Qadr",
+      "pages": [
+        598
+      ],
+      "file": "surahs/097.json"
+    },
+    {
+      "surah": 98,
+      "name_arabic": "البينة",
+      "name_simple": "Al-Bayyinah",
+      "pages": [
+        598,
+        599
+      ],
+      "file": "surahs/098.json"
+    },
+    {
+      "surah": 99,
+      "name_arabic": "الزلزلة",
+      "name_simple": "Az-Zalzalah",
+      "pages": [
+        599
+      ],
+      "file": "surahs/099.json"
+    },
+    {
+      "surah": 100,
+      "name_arabic": "العاديات",
+      "name_simple": "Al-'Adiyat",
+      "pages": [
+        599,
+        600
+      ],
+      "file": "surahs/100.json"
+    },
+    {
+      "surah": 101,
+      "name_arabic": "القارعة",
+      "name_simple": "Al-Qari'ah",
+      "pages": [
+        600
+      ],
+      "file": "surahs/101.json"
+    },
+    {
+      "surah": 102,
+      "name_arabic": "التكاثر",
+      "name_simple": "At-Takathur",
+      "pages": [
+        600
+      ],
+      "file": "surahs/102.json"
+    },
+    {
+      "surah": 103,
+      "name_arabic": "العصر",
+      "name_simple": "Al-'Asr",
+      "pages": [
+        601
+      ],
+      "file": "surahs/103.json"
+    },
+    {
+      "surah": 104,
+      "name_arabic": "الهمزة",
+      "name_simple": "Al-Humazah",
+      "pages": [
+        601
+      ],
+      "file": "surahs/104.json"
+    },
+    {
+      "surah": 105,
+      "name_arabic": "الفيل",
+      "name_simple": "Al-Fil",
+      "pages": [
+        601
+      ],
+      "file": "surahs/105.json"
+    },
+    {
+      "surah": 106,
+      "name_arabic": "قريش",
+      "name_simple": "Quraysh",
+      "pages": [
+        602
+      ],
+      "file": "surahs/106.json"
+    },
+    {
+      "surah": 107,
+      "name_arabic": "الماعون",
+      "name_simple": "Al-Ma'un",
+      "pages": [
+        602
+      ],
+      "file": "surahs/107.json"
+    },
+    {
+      "surah": 108,
+      "name_arabic": "الكوثر",
+      "name_simple": "Al-Kawthar",
+      "pages": [
+        602
+      ],
+      "file": "surahs/108.json"
+    },
+    {
+      "surah": 109,
+      "name_arabic": "الكافرون",
+      "name_simple": "Al-Kafirun",
+      "pages": [
+        603
+      ],
+      "file": "surahs/109.json"
+    },
+    {
+      "surah": 110,
+      "name_arabic": "النصر",
+      "name_simple": "An-Nasr",
+      "pages": [
+        603
+      ],
+      "file": "surahs/110.json"
+    },
+    {
+      "surah": 111,
+      "name_arabic": "المسد",
+      "name_simple": "Al-Masad",
+      "pages": [
+        603
+      ],
+      "file": "surahs/111.json"
+    },
+    {
+      "surah": 112,
+      "name_arabic": "الإخلاص",
+      "name_simple": "Al-Ikhlas",
+      "pages": [
+        604
+      ],
+      "file": "surahs/112.json"
+    },
+    {
+      "surah": 113,
+      "name_arabic": "الفلق",
+      "name_simple": "Al-Falaq",
+      "pages": [
+        604
+      ],
+      "file": "surahs/113.json"
+    },
+    {
+      "surah": 114,
+      "name_arabic": "الناس",
+      "name_simple": "An-Nas",
+      "pages": [
+        604
+      ],
+      "file": "surahs/114.json"
+    }
+  ],
+  "juz": [
+    {
+      "juz": 1,
+      "pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "file": "juz/01.json"
+    },
+    {
+      "juz": 2,
+      "pages": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "file": "juz/02.json"
+    },
+    {
+      "juz": 3,
+      "pages": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "file": "juz/03.json"
+    },
+    {
+      "juz": 4,
+      "pages": [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81
+      ],
+      "file": "juz/04.json"
+    },
+    {
+      "juz": 5,
+      "pages": [
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+      ],
+      "file": "juz/05.json"
+    },
+    {
+      "juz": 6,
+      "pages": [
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121
+      ],
+      "file": "juz/06.json"
+    },
+    {
+      "juz": 7,
+      "pages": [
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141
+      ],
+      "file": "juz/07.json"
+    },
+    {
+      "juz": 8,
+      "pages": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161
+      ],
+      "file": "juz/08.json"
+    },
+    {
+      "juz": 9,
+      "pages": [
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181
+      ],
+      "file": "juz/09.json"
+    },
+    {
+      "juz": 10,
+      "pages": [
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201
+      ],
+      "file": "juz/10.json"
+    },
+    {
+      "juz": 11,
+      "pages": [
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221
+      ],
+      "file": "juz/11.json"
+    },
+    {
+      "juz": 12,
+      "pages": [
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241
+      ],
+      "file": "juz/12.json"
+    },
+    {
+      "juz": 13,
+      "pages": [
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261
+      ],
+      "file": "juz/13.json"
+    },
+    {
+      "juz": 14,
+      "pages": [
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281
+      ],
+      "file": "juz/14.json"
+    },
+    {
+      "juz": 15,
+      "pages": [
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301
+      ],
+      "file": "juz/15.json"
+    },
+    {
+      "juz": 16,
+      "pages": [
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321
+      ],
+      "file": "juz/16.json"
+    },
+    {
+      "juz": 17,
+      "pages": [
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337,
+        338,
+        339,
+        340,
+        341
+      ],
+      "file": "juz/17.json"
+    },
+    {
+      "juz": 18,
+      "pages": [
+        342,
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349,
+        350,
+        351,
+        352,
+        353,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359,
+        360,
+        361
+      ],
+      "file": "juz/18.json"
+    },
+    {
+      "juz": 19,
+      "pages": [
+        362,
+        363,
+        364,
+        365,
+        366,
+        367,
+        368,
+        369,
+        370,
+        371,
+        372,
+        373,
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381
+      ],
+      "file": "juz/19.json"
+    },
+    {
+      "juz": 20,
+      "pages": [
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401
+      ],
+      "file": "juz/20.json"
+    },
+    {
+      "juz": 21,
+      "pages": [
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419,
+        420,
+        421
+      ],
+      "file": "juz/21.json"
+    },
+    {
+      "juz": 22,
+      "pages": [
+        422,
+        423,
+        424,
+        425,
+        426,
+        427,
+        428,
+        429,
+        430,
+        431,
+        432,
+        433,
+        434,
+        435,
+        436,
+        437,
+        438,
+        439,
+        440,
+        441
+      ],
+      "file": "juz/22.json"
+    },
+    {
+      "juz": 23,
+      "pages": [
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461
+      ],
+      "file": "juz/23.json"
+    },
+    {
+      "juz": 24,
+      "pages": [
+        462,
+        463,
+        464,
+        465,
+        466,
+        467,
+        468,
+        469,
+        470,
+        471,
+        472,
+        473,
+        474,
+        475,
+        476,
+        477,
+        478,
+        479,
+        480,
+        481
+      ],
+      "file": "juz/24.json"
+    },
+    {
+      "juz": 25,
+      "pages": [
+        482,
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        494,
+        495,
+        496,
+        497,
+        498,
+        499,
+        500,
+        501
+      ],
+      "file": "juz/25.json"
+    },
+    {
+      "juz": 26,
+      "pages": [
+        502,
+        503,
+        504,
+        505,
+        506,
+        507,
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514,
+        515,
+        516,
+        517,
+        518,
+        519,
+        520,
+        521
+      ],
+      "file": "juz/26.json"
+    },
+    {
+      "juz": 27,
+      "pages": [
+        522,
+        523,
+        524,
+        525,
+        526,
+        527,
+        528,
+        529,
+        530,
+        531,
+        532,
+        533,
+        534,
+        535,
+        536,
+        537,
+        538,
+        539,
+        540,
+        541
+      ],
+      "file": "juz/27.json"
+    },
+    {
+      "juz": 28,
+      "pages": [
+        542,
+        543,
+        544,
+        545,
+        546,
+        547,
+        548,
+        549,
+        550,
+        551,
+        552,
+        553,
+        554,
+        555,
+        556,
+        557,
+        558,
+        559,
+        560,
+        561
+      ],
+      "file": "juz/28.json"
+    },
+    {
+      "juz": 29,
+      "pages": [
+        562,
+        563,
+        564,
+        565,
+        566,
+        567,
+        568,
+        569,
+        570,
+        571,
+        572,
+        573,
+        574,
+        575,
+        576,
+        577,
+        578,
+        579,
+        580,
+        581
+      ],
+      "file": "juz/29.json"
+    },
+    {
+      "juz": 30,
+      "pages": [
+        582,
+        583,
+        584,
+        585,
+        586,
+        587,
+        588,
+        589,
+        590,
+        591,
+        592,
+        593,
+        594,
+        595,
+        596,
+        597,
+        598,
+        599,
+        600,
+        601,
+        602,
+        603,
+        604
+      ],
+      "file": "juz/30.json"
+    }
+  ]
+}

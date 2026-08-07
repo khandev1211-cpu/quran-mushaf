@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قرآن مجید — All Surahs</title>
+  <style>
+    :root {
+      --bg1: #0a1628; --bg2: #12243d; --gold: #d4af37; --gold-light: #f0d878;
+      --cream: #faf6ee; --card: rgba(255,255,255,0.06); --card-hover: rgba(212,175,55,0.1);
+      --border: rgba(212,175,55,0.2); --text: #e8e0d0; --muted: #9aa8b8;
+      --toolbar-bg: rgba(10,22,40,0.92); --font-size: 36px; --err: #ef5350;
+    }
+    body.theme-light {
+      --bg1: #fff; --bg2: #f7f7f7; --gold: #1b5e20; --gold-light: #2e7d32;
+      --cream: #111; --card: rgba(0,0,0,0.03); --card-hover: rgba(0,0,0,0.06);
+      --border: rgba(0,0,0,0.12); --text: #222; --muted: #555; --toolbar-bg: rgba(255,255,255,0.95);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg1); color: var(--text); min-height: 100vh; }
+    .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(160deg, var(--bg1), var(--bg2)); }
+    .wrap { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 20px 16px 60px; }
+    header { text-align: center; margin-bottom: 20px; }
+    header h1 { font-size: 1.6rem; color: var(--gold-light); font-weight: 400; }
+    header p { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+    .toolbar { position: sticky; top: 0; z-index: 10; background: var(--toolbar-bg); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; margin-bottom: 20px;
+      display: flex; flex-direction: column; gap: 12px; }
+    .toolbar-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+    .search-wrap { flex: 1; min-width: 200px; max-width: 320px; }
+    #surahSearch, #surahSelect { width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: 10px; background: rgba(0,0,0,0.25); color: var(--text); font-size: 0.9rem; }
+    #surahSelect { min-width: 220px; max-width: 400px; cursor: pointer; }
+    .btn, .toggle-btn { padding: 9px 16px; border: 1px solid var(--border); background: transparent;
+      color: var(--gold-light); border-radius: 10px; cursor: pointer; font-size: 0.85rem; }
+    .btn:hover:not(:disabled), .toggle-btn.on { background: var(--gold); color: #fff; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .size-control { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--muted); }
+    .meta-bar { text-align: center; padding: 12px 16px; margin-bottom: 16px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; font-size: 0.85rem; color: var(--muted); }
+    .meta-bar strong { color: var(--gold-light); font-size: 1.1rem; display: block; margin-bottom: 4px; }
+    .page-section { margin-bottom: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .page-header { display: flex; justify-content: space-between; padding: 10px 18px;
+      background: rgba(212,175,55,0.08); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); direction: ltr; }
+    .page-body { padding: 24px 32px; }
+    .mushaf-line { font-weight: bold; font-size: var(--font-size); line-height: 2.3; direction: rtl;
+      text-align: justify; text-align-last: center; color: var(--cream); margin-bottom: 0.25em; }
+    .glyph { display: inline-block; padding: 0 1px; }
+    .status { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .status.error { color: var(--err); }
+    .page-jump { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
+    .page-jump button { padding: 5px 10px; font-size: 0.72rem; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); border-radius: 6px; cursor: pointer; }
+    footer { text-align: center; margin-top: 32px; font-size: 0.75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wrap">
+    <header><h1>قرآن مجید</h1><p>تمام ۱۱۴ سورتیں · Mushaf Fonts · Offline</p></header>
+    <div class="toolbar">
+      <div class="toolbar-row">
+        <div class="search-wrap"><input type="text" id="surahSearch" placeholder="سورہ تلاش کریں..." autocomplete="off"></div>
+        <select id="surahSelect"></select>
+      </div>
+      <div class="toolbar-row">
+        <button class="btn" id="btnPrev">◀ پچھلی</button>
+        <button class="btn" id="btnNext">اگلی ▶</button>
+        <div class="size-control"><label for="fontSize">سائز</label><input type="range" id="fontSize" min="22" max="56" value="36"></div>
+        <button class="toggle-btn" id="btnTheme" type="button">☀️ سفید پس منظر</button>
+      </div>
+    </div>
+    <div class="meta-bar" id="metaBar"><strong>—</strong><span id="metaDetail">لوڈ ہو رہا ہے...</span></div>
+    <div class="page-jump" id="pageJump" hidden></div>
+    <div id="display"><p class="status">لوڈ ہو رہا ہے...</p></div>
+    <footer>604 Mushaf pages · QCF-style fonts</footer>
+  </div>
+  <script>
+    const DATA = '../data', WOFF = '../woff';
+    let index = null, currentSurah = 1, loadToken = 0, lightTheme = false;
+    const loadedFonts = new Set();
+    const els = {
+      select: document.getElementById('surahSelect'),
+      search: document.getElementById('surahSearch'),
+      display: document.getElementById('display'),
+      meta: document.getElementById('metaDetail'),
+      jump: document.getElementById('pageJump'),
+    };
+
+    function ensureFont(id) {
+      if (loadedFonts.has(id)) return Promise.resolve();
+      const s = document.createElement('style');
+      s.textContent = `@font-face{font-family:'${id}';src:url('${WOFF}/${id}.woff') format('woff');font-weight:bold;font-style:normal}`;
+      document.head.appendChild(s);
+      return (document.fonts ? document.fonts.load(`bold 16px '${id}'`) : Promise.resolve()).then(() => loadedFonts.add(id));
+    }
+    function renderSection(sec) {
+      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(g=>`<span class="glyph">${g}</span>`).join(' ')}</p>`).join('');
+      return `<section class="page-section" id="page-${sec.page}"><div class="page-header"><span>صفحہ ${sec.page}</span><span>${sec.font}.woff</span></div><div class="page-body">${lines}</div></section>`;
+    }
+    async function loadSurah(num) {
+      const token = ++loadToken; currentSurah = num;
+      const entry = index.surahs.find(s => s.surah === num);
+      els.display.innerHTML = '<p class="status">لوڈ ہو رہا ہے...</p>';
+      const res = await fetch(`${DATA}/${entry.file}`);
+      const data = await res.json();
+      if (token !== loadToken) return;
+      await Promise.all([...new Set(data.sections.map(s=>s.font))].map(ensureFont));
+      if (token !== loadToken) return;
+      document.querySelector('#metaBar strong').textContent = `${data.name_arabic} (${data.name_simple})`;
+      els.meta.textContent = `سورہ ${data.surah} · ${data.verses_count} آیات · صفحات ${data.pages[0]}–${data.pages[data.pages.length-1]}`;
+      els.display.innerHTML = data.sections.map(renderSection).join('');
+      els.jump.hidden = data.pages.length <= 1;
+      if (!els.jump.hidden) {
+        els.jump.innerHTML = data.pages.map(p => `<button type="button" data-page="${p}">${p}</button>`).join('');
+        els.jump.querySelectorAll('button').forEach(b => b.onclick = () => document.getElementById('page-'+b.dataset.page)?.scrollIntoView({behavior:'smooth'}));
+      }
+    }
+    document.getElementById('btnTheme').onclick = () => {
+      lightTheme = !lightTheme;
+      document.body.classList.toggle('theme-light', lightTheme);
+      document.getElementById('btnTheme').classList.toggle('on', lightTheme);
+    };
+    document.getElementById('btnPrev').onclick = () => currentSurah > 1 && loadSurah(currentSurah-1);
+    document.getElementById('btnNext').onclick = () => currentSurah < 114 && loadSurah(currentSurah+1);
+    els.select.onchange = () => loadSurah(+els.select.value);
+    document.getElementById('fontSize').oninput = e => document.documentElement.style.setProperty('--font-size', e.target.value+'px');
+    (async () => {
+      index = await (await fetch(`${DATA}/index.json`)).json();
+      index.surahs.forEach(s => { const o = document.createElement('option'); o.value = s.surah; o.textContent = `${s.surah}. ${s.name_arabic} — ${s.name_simple}`; els.select.appendChild(o); });
+      loadSurah(1);
+    })();
+  </script>
+</body>
+</html>
