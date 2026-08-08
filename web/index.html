@@ -346,6 +346,8 @@
     let chunks = [];
     let stream = null;
     let liveStreaming = false;
+    let chunkUploadInFlight = false; // guards against overlapping /api/transcribe-chunk calls
+    let chunkUploadSkipped = 0;      // how many ticks were skipped while a prior upload was in flight
 
     function setSpeechLog(message, mode = 'info') {
       els.speechLog.innerHTML = message;
@@ -387,7 +389,30 @@
             chunks.push(blob);
             dbgLog('CHUNK', `New chunk captured: ${blob.size} bytes, type=${blob.type}`);
             if (liveStreaming) {
-              uploadChunk(blob);
+              // WebM only carries its EBML header + init segment on the very
+              // first ondataavailable blob - every blob after that is a raw
+              // continuation fragment with no header, so ffmpeg can't decode
+              // it standalone (this is why /api/transcribe-chunk was 500ing
+              // on every call except sometimes the first). Send everything
+              // captured so far (header + all fragments) as one cumulative
+              // WebM blob each time instead of just the newest delta.
+              //
+              // Re-transcribing the whole growing recording gets slower every
+              // tick on CPU, so ticks can start piling up faster than the
+              // server can answer them. If we fired uploadChunk() on every
+              // tick regardless, requests would queue up behind each other
+              // until fetchWithTimeout's 15s timeout aborts an old one mid
+              // response - that's what caused the WinError 10053 /
+              // ConnectionAbortedError crashes server-side. Skip this tick
+              // if the previous upload hasn't finished yet; the next
+              // cumulative blob will include this second's audio anyway.
+              if (chunkUploadInFlight) {
+                chunkUploadSkipped += 1;
+                dbgLog('CHUNK', `Skipping upload - previous chunk still in flight (${chunkUploadSkipped} skipped so far)`, 'warn');
+              } else {
+                const cumulativeBlob = new Blob(chunks, { type: mimeType || 'audio/webm' });
+                uploadChunk(cumulativeBlob);
+              }
             }
           } else {
             dbgLog('CHUNK', 'ondataavailable fired with 0-byte blob (ignored)', 'warn');
@@ -445,6 +470,7 @@
       formData.append('audio', audioChunk, fileName);
       dbgLog('CHUNK-UPLOAD', `POST ${endpoint} · file=${fileName} · size=${audioChunk.size} bytes`);
 
+      chunkUploadInFlight = true;
       try {
         const t0 = performance.now();
         const response = await fetchWithTimeout(endpoint, {
@@ -466,15 +492,13 @@
         dbgLog('CHUNK-UPLOAD', `Response ${response.status} in ${ms}ms · body: ${rawText.slice(0, 2000)}`, 'ok');
         if (json.success) {
           setSpeechLog(`<strong>Status:</strong> live chunk accepted · ${json.transcript || 'transcribed'}`, 'ok');
-          // NOTE: we don't yet know whether /transcribe-chunk returns a
-          // running cumulative transcript or just the delta for this
-          // chunk. Assume delta (most streaming ASR APIs work this way)
-          // and append with a space. If real API responses show it's
-          // actually cumulative, this should become a plain assignment
-          // instead of a concatenation — see PROJECT_DOCS.md follow-up.
+          // Each upload now sends the FULL recording so far (see
+          // ondataavailable above), so the transcript that comes back is
+          // already a complete re-transcription of everything captured up
+          // to this point - not a delta. Replace, don't concatenate.
           if (json.transcript) {
-            fullTranscript = (fullTranscript + ' ' + json.transcript).trim();
-            dbgLog('TRANSCRIPT', `Accumulated so far: "${fullTranscript}"`);
+            fullTranscript = json.transcript.trim();
+            dbgLog('TRANSCRIPT', `Updated so far: "${fullTranscript}"`);
           } else {
             dbgLog('TRANSCRIPT', 'Response had success=true but no transcript field/empty transcript', 'warn');
           }
@@ -494,6 +518,8 @@
         els.speechResult.textContent = err.message;
         dbgLog('CHUNK-UPLOAD', `fetch threw: ${err.name}: ${err.message}`, 'error');
         console.error(err);
+      } finally {
+        chunkUploadInFlight = false;
       }
     }
 

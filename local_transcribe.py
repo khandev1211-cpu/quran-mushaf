@@ -53,6 +53,7 @@ def _find_ffmpeg():
         'ffmpeg',
         'ffmpeg.exe',
         r'C:\ffmpeg\bin\ffmpeg.exe',
+        r'C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe',
         r'C:\ffmpeg\ffmpeg.exe',
         '/usr/bin/ffmpeg',
         '/usr/local/bin/ffmpeg',

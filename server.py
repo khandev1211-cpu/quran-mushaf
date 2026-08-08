@@ -152,12 +152,21 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
 
     def send_json(self, status_code, payload):
         body = json.dumps(payload).encode('utf-8')
-        self.send_response(status_code)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Content-Length', str(len(body)))
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status_code)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(body)
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError) as exc:
+            # The browser closed/aborted this connection before we finished
+            # writing (e.g. a slow chunk transcription outlived the client's
+            # fetch timeout). The client already gave up on this response,
+            # so there's nothing useful left to send - just log and move on
+            # instead of letting the exception propagate into a noisy
+            # traceback from the socketserver internals.
+            print(f'[send_json] client disconnected before response was sent: {exc}')
 
 if __name__ == '__main__':
     print('Loading local Quran transcription models (this may take a while on first run, '
