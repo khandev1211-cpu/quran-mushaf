@@ -1,1 +1,19 @@
+# Local recorder output: keep recordings off source control
 *.webm
+recordings/*.webm
+recordings/*.wav
+recordings/*.ogg
+recordings/*.m4a
+recordings/*.mp3
+recordings/*.aac
+
+# Python runtime/cache files
+__pycache__/
+*.py[cod]
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+
+# Temporary logs
+*.log

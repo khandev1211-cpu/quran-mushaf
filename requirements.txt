@@ -1,0 +1,4 @@
+transformers
+librosa
+soundfile
+accelerate

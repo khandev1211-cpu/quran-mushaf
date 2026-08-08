@@ -2,19 +2,18 @@ import os
 import json
 import uuid
 import urllib.parse
-import urllib.request
 import mimetypes
 from email.parser import BytesParser
 from email.policy import default
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+import local_transcribe
+
 ROOT = Path(__file__).resolve().parent
 WEB_ROOT = ROOT / 'web'
 RECORDINGS_DIR = ROOT / 'recordings'
 PORT = 8080
-QURAN_API_BASE = 'https://quran.alifislam.cloud'
-QURAN_API_TOKEN = 'QURAN_1234567890abcdef'
 
 RECORDINGS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -46,10 +45,10 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             self.handle_recording_upload()
             return
         if parsed.path == '/api/transcribe':
-            self.handle_external_transcribe('transcribe')
+            self.handle_local_transcribe(use_tiny=False)
             return
         if parsed.path == '/api/transcribe-chunk':
-            self.handle_external_transcribe('transcribe-chunk')
+            self.handle_local_transcribe(use_tiny=True)
             return
 
         self.send_error(404, 'Endpoint not found')
@@ -111,7 +110,7 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
         except Exception as exc:
             self.send_json(500, {'success': False, 'message': f'Upload failed: {exc}'})
 
-    def handle_external_transcribe(self, api_path):
+    def handle_local_transcribe(self, use_tiny: bool):
         parsed, err = self.parse_audio_multipart()
         if err:
             self.send_json(400, err)
@@ -123,38 +122,12 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             with open(save_path, 'wb') as f:
                 f.write(audio_info['payload'])
 
-            api_url = f'{QURAN_API_BASE}/{api_path}'
-            boundary = uuid.uuid4().hex
-            file_name = audio_info['file_name']
-            payload = audio_info['payload']
-
-            boundary_marker = f'--{boundary}\r\n'.encode('utf-8')
-            body = bytearray()
-            body.extend(boundary_marker)
-            body.extend(f'Content-Disposition: form-data; name="audio"; filename="{file_name}"\r\n'.encode('utf-8'))
-            body.extend(f'Content-Type: audio/webm\r\n\r\n'.encode('utf-8'))
-            body.extend(payload)
-            body.extend(f'\r\n--{boundary}--\r\n'.encode('utf-8'))
-
-            req = urllib.request.Request(
-                api_url,
-                data=bytes(body),
-                headers={
-                    'Content-Type': f'multipart/form-data; boundary={boundary}',
-                    'Authorization': f'Bearer {QURAN_API_TOKEN}'
-                },
-                method='POST'
-            )
-
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                response_text = resp.read().decode('utf-8')
-                try:
-                    response_json = json.loads(response_text)
-                    self.send_json(resp.status, response_json)
-                except Exception:
-                    self.send_json(resp.status, {'success': False, 'raw': response_text})
+            result = local_transcribe.transcribe(audio_info['payload'], use_tiny=use_tiny)
+            status = 200 if result.get('success') else 500
+            self.send_json(status, result)
         except Exception as exc:
-            self.send_json(500, {'success': False, 'message': f'Forward failed: {exc}'})
+            print(f'[local-transcribe-error] {type(exc).__name__}: {exc}')
+            self.send_json(500, {'success': False, 'message': f'Local transcription failed: {exc}'})
 
     def serve_file(self, abs_path):
         abs_path = Path(abs_path)
@@ -187,6 +160,10 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
 if __name__ == '__main__':
+    print('Loading local Quran transcription models (this may take a while on first run, '
+          'since it downloads the models from HuggingFace)...')
+    local_transcribe.load_models()
+
     server = ThreadingHTTPServer(('0.0.0.0', PORT), QuranMushafHandler)
     print(f'Quran Mushaf server running at http://localhost:{PORT}')
     print(f'Recordings directory: {RECORDINGS_DIR}')
