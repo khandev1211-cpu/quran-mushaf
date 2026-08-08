@@ -52,6 +52,48 @@
     .page-jump { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
     .page-jump button { padding: 5px 10px; font-size: 0.72rem; border: 1px solid var(--border);
       background: transparent; color: var(--muted); border-radius: 6px; cursor: pointer; }
+    .speech-panel { margin: 24px 0; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
+    .speech-panel h2 { font-size: 1rem; color: var(--gold-light); margin-bottom: 8px; }
+    .speech-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 10px 0 14px; }
+    .speech-log { font-size: 0.82rem; color: var(--muted); line-height: 1.7; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px 12px; min-height: 44px; }
+    .speech-log strong { color: var(--gold-light); }
+    .speech-log.live-ok { border-color: rgba(80,255,150,0.65); }
+    .speech-log.live-error { border-color: rgba(255,80,80,0.75); }
+    .speech-result { margin-top: 10px; white-space: pre-wrap; }
+    .word-status { display: inline-block; margin-right: 4px; padding: 2px 6px; border-radius: 5px; background: rgba(255,255,255,0.06); }
+    .word-status.ok { background: rgba(40,255,110,0.18); color: #8aff9a; border: 1px solid #44ff87; }
+    .word-status.bad { background: rgba(255,80,80,0.12); color: #ff9b9b; border: 1px solid #ff6a6a; }
+    .live-grade-wrap { margin-top: 12px; }
+    .live-grade-legend { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.75rem; }
+    .legend-chip { padding: 3px 10px; border-radius: 6px; }
+    .legend-chip.ok { background: rgba(40,255,110,0.18); color: #8aff9a; border: 1px solid #44ff87; }
+    .legend-chip.bad { background: rgba(255,80,80,0.12); color: #ff9b9b; border: 1px solid #ff6a6a; }
+    .legend-chip.missed { background: rgba(255,210,60,0.14); color: #ffe28a; border: 1px solid #ffd23c; }
+    .live-grade-text { direction: rtl; text-align: right; font-size: 1.5rem; line-height: 2.4; background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px 20px; }
+    .live-word { display: inline-block; margin: 0 3px; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.05); transition: background 0.2s, color 0.2s; }
+    .live-word.ok { background: rgba(40,255,110,0.2); color: #8aff9a; }
+    .live-word.bad { background: rgba(255,80,80,0.18); color: #ff9b9b; }
+    .live-word.missed { background: rgba(255,210,60,0.2); color: #ffe28a; }
+    .live-word.pending { color: var(--muted); }
+
+    .debug-panel { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
+    .debug-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+    .debug-panel-header h3 { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    .debug-panel-actions { display: flex; align-items: center; gap: 8px; }
+    .debug-count { font-size: 0.75rem; color: var(--muted); }
+    .btn-small { padding: 4px 10px; font-size: 0.75rem; }
+    .debug-log { max-height: 320px; overflow-y: auto; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; font-family: 'Courier New', monospace; font-size: 0.72rem; line-height: 1.5; }
+    .debug-entry { padding: 6px 8px; margin-bottom: 4px; border-radius: 5px; border-left: 3px solid #555; white-space: pre-wrap; word-break: break-word; }
+    .debug-entry.dbg-info { border-left-color: #6aa9ff; background: rgba(106,169,255,0.06); }
+    .debug-entry.dbg-ok { border-left-color: #44ff87; background: rgba(68,255,135,0.06); }
+    .debug-entry.dbg-warn { border-left-color: #ffd23c; background: rgba(255,210,60,0.06); }
+    .debug-entry.dbg-error { border-left-color: #ff6a6a; background: rgba(255,106,106,0.08); }
+    .debug-time { color: #888; margin-right: 6px; }
+    .debug-tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-weight: bold; margin-right: 6px; font-size: 0.68rem; }
+    .debug-entry.dbg-info .debug-tag { background: rgba(106,169,255,0.2); color: #a9cbff; }
+    .debug-entry.dbg-ok .debug-tag { background: rgba(68,255,135,0.2); color: #8aff9a; }
+    .debug-entry.dbg-warn .debug-tag { background: rgba(255,210,60,0.2); color: #ffe28a; }
+    .debug-entry.dbg-error .debug-tag { background: rgba(255,106,106,0.2); color: #ff9b9b; }
     footer { text-align: center; margin-top: 32px; font-size: 0.75rem; color: var(--muted); }
   </style>
 </head>
@@ -71,13 +113,49 @@
         <button class="toggle-btn" id="btnTheme" type="button">☀️ سفید پس منظر</button>
       </div>
     </div>
+    <div class="speech-panel">
+      <h2>Realtime Quran Speaking & Tajweed</h2>
+      <div class="speech-controls">
+        <button class="btn" id="btnStartRec">🎙️ Start</button>
+        <button class="btn" id="btnStopRec" disabled>⏹ Stop & Upload</button>
+        <button class="btn" id="btnUseSample" disabled>Use sample</button>
+      </div>
+      <div class="speech-log" id="speechLog">
+        <strong>Status:</strong> idle · ready for microphone
+      </div>
+      <div class="live-grade-wrap" id="liveGradeWrap" hidden>
+        <div class="live-grade-legend">
+          <span class="legend-chip ok">صحیح</span>
+          <span class="legend-chip bad">غلط</span>
+          <span class="legend-chip missed">چھوٹ گیا</span>
+        </div>
+        <div class="live-grade-text" id="liveGradeText"></div>
+      </div>
+      <div class="speech-result" id="speechResult"></div>
+
+      <div class="debug-panel">
+        <div class="debug-panel-header">
+          <h3>Debug Log</h3>
+          <div class="debug-panel-actions">
+            <span id="debugCount" class="debug-count">0 entries</span>
+            <button class="btn btn-small" id="btnCopyLog">📋 Copy log</button>
+            <button class="btn btn-small" id="btnClearLog">🗑 Clear</button>
+          </div>
+        </div>
+        <div class="debug-log" id="debugLog"></div>
+      </div>
+    </div>
     <div class="meta-bar" id="metaBar"><strong>—</strong><span id="metaDetail">لوڈ ہو رہا ہے...</span></div>
     <div class="page-jump" id="pageJump" hidden></div>
     <div id="display"><p class="status">لوڈ ہو رہا ہے...</p></div>
     <footer>604 Mushaf pages · QCF-style fonts</footer>
   </div>
+  <script src="recite-match.js"></script>
   <script>
     const DATA = '../data', WOFF = '../woff';
+    const API_BASE = 'https://quran.alifislam.cloud';
+    const API_TOKEN = 'QURAN_1234567890abcdef';
+    const RECORDING_UPLOAD_URL = '/api/recordings';
     let index = null, currentSurah = 1, loadToken = 0, lightTheme = false;
     const loadedFonts = new Set();
     const els = {
@@ -86,7 +164,133 @@
       display: document.getElementById('display'),
       meta: document.getElementById('metaDetail'),
       jump: document.getElementById('pageJump'),
+      startRec: document.getElementById('btnStartRec'),
+      stopRec: document.getElementById('btnStopRec'),
+      speechLog: document.getElementById('speechLog'),
+      speechResult: document.getElementById('speechResult'),
+      liveGradeWrap: document.getElementById('liveGradeWrap'),
+      liveGradeText: document.getElementById('liveGradeText'),
+      debugLog: document.getElementById('debugLog'),
+      debugCount: document.getElementById('debugCount'),
+      btnCopyLog: document.getElementById('btnCopyLog'),
+      btnClearLog: document.getElementById('btnClearLog')
     };
+
+    // ---- Debug / diagnostics log ------------------------------------------
+    // Every meaningful event (mic permission, recorder state, each chunk
+    // upload's request+response, server errors, JS exceptions) is appended
+    // here as plain text with a timestamp, so the user can scroll back
+    // through everything that happened in this session and copy it out —
+    // rather than errors silently overwriting the single-line status text
+    // above, which made it impossible to see what actually went wrong.
+    const debugEntries = []; // { time, level, tag, message }
+
+    function dbgLog(tag, message, level = 'info') {
+      const time = new Date().toISOString().split('T')[1].replace('Z', '');
+      const entry = { time, level, tag, message: String(message) };
+      debugEntries.push(entry);
+
+      const div = document.createElement('div');
+      div.className = `debug-entry dbg-${level}`;
+      div.innerHTML = `<span class="debug-time">${time}</span><span class="debug-tag">${tag}</span>${escapeHtml(entry.message)}`;
+      els.debugLog.appendChild(div);
+      els.debugLog.scrollTop = els.debugLog.scrollHeight;
+      els.debugCount.textContent = `${debugEntries.length} entries`;
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function debugLogAsText() {
+      return debugEntries
+        .map(e => `[${e.time}] [${e.level.toUpperCase()}] [${e.tag}] ${e.message}`)
+        .join('\n');
+    }
+
+    els.btnCopyLog.addEventListener('click', async () => {
+      const text = debugLogAsText() || '(no log entries yet)';
+      try {
+        await navigator.clipboard.writeText(text);
+        els.btnCopyLog.textContent = '✅ Copied!';
+      } catch (err) {
+        // Clipboard API can fail (permissions, non-secure context). Fall
+        // back to a selectable textarea so the user can still manually
+        // copy instead of hitting a dead end.
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:200px;z-index:9999;';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        els.btnCopyLog.textContent = '⚠️ Select & copy manually';
+        setTimeout(() => document.body.removeChild(ta), 8000);
+      }
+      setTimeout(() => { els.btnCopyLog.textContent = '📋 Copy log'; }, 2000);
+    });
+
+    els.btnClearLog.addEventListener('click', () => {
+      debugEntries.length = 0;
+      els.debugLog.innerHTML = '';
+      els.debugCount.textContent = '0 entries';
+    });
+
+    // Catch anything that slips through try/catch blocks elsewhere too.
+    window.addEventListener('error', (e) => {
+      dbgLog('JS-ERROR', `${e.message} (${e.filename}:${e.lineno}:${e.colno})`, 'error');
+    });
+    window.addEventListener('unhandledrejection', (e) => {
+      dbgLog('PROMISE-REJECTION', e.reason?.message || String(e.reason), 'error');
+    });
+
+    // ---- Live word-by-word grading (Surah 1 only, for now) -----------------
+    // Expected word data is a clean Uthmani text source, separate from the
+    // page-glyph JSON in data/surahs/ — those are QCF mushaf presentation
+    // glyphs (per-letter ligatures tied to a specific font), not plain
+    // Arabic words, so they can't be diffed against a speech transcript.
+    // See data/expected/<surah>.json for the word lists this reads.
+    const LIVE_GRADING_SURAHS = new Set([1]);
+    let expectedFlat = null;      // flattened expected words for the active surah
+    let fullTranscript = '';      // running transcript text accumulated from chunks
+
+    async function loadExpectedWords(surahNum) {
+      if (!LIVE_GRADING_SURAHS.has(surahNum)) {
+        expectedFlat = null;
+        return;
+      }
+      try {
+        const padded = String(surahNum).padStart(3, '0');
+        const res = await fetch(`${DATA}/expected/${padded}.json`);
+        if (!res.ok) throw new Error(`expected text fetch failed (${res.status})`);
+        const doc = await res.json();
+        expectedFlat = ReciteMatch.flattenExpected(doc);
+      } catch (err) {
+        console.error('Could not load expected text for live grading:', err);
+        expectedFlat = null;
+      }
+    }
+
+    function renderLiveGrade(graded) {
+      if (!graded) {
+        els.liveGradeWrap.hidden = true;
+        return;
+      }
+      els.liveGradeWrap.hidden = false;
+      els.liveGradeText.innerHTML = graded.map(w =>
+        `<span class="live-word ${w.status}">${w.word.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]/g,'')}</span>`
+      ).join('');
+    }
+
+    function resetLiveGrade() {
+      fullTranscript = '';
+      if (expectedFlat) {
+        renderLiveGrade(ReciteMatch.gradeTranscript(expectedFlat, '', false));
+      } else {
+        renderLiveGrade(null);
+      }
+    }
 
     function ensureFont(id) {
       if (loadedFonts.has(id)) return Promise.resolve();
@@ -116,7 +320,257 @@
         els.jump.innerHTML = data.pages.map(p => `<button type="button" data-page="${p}">${p}</button>`).join('');
         els.jump.querySelectorAll('button').forEach(b => b.onclick = () => document.getElementById('page-'+b.dataset.page)?.scrollIntoView({behavior:'smooth'}));
       }
+      await loadExpectedWords(num);
+      resetLiveGrade();
     }
+    // Wrap fetch with an explicit timeout + logging so a hung request (DNS
+    // stall, dead upstream API, sandboxed/blocked network, etc.) shows up
+    // clearly in the debug log within a bounded time instead of silently
+    // hanging forever with no feedback in the UI.
+    async function fetchWithTimeout(url, opts = {}, timeoutMs = 15000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        return await fetch(url, { ...opts, signal: controller.signal });
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          throw new Error(`Request timed out after ${timeoutMs}ms (no response from server)`);
+        }
+        throw err;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    let mediaRecorder = null;
+    let chunks = [];
+    let stream = null;
+    let liveStreaming = false;
+
+    function setSpeechLog(message, mode = 'info') {
+      els.speechLog.innerHTML = message;
+      els.speechLog.classList.toggle('live-ok', mode === 'ok');
+      els.speechLog.classList.toggle('live-error', mode === 'error');
+    }
+
+    function renderTranscriptWords(transcript) {
+      if (!transcript) return '';
+      const words = String(transcript).trim().split(/\s+/).filter(Boolean);
+      if (!words.length) return '';
+      return words.map((w, idx) => `<span class="word-status ${idx % 2 === 0 ? 'ok' : 'bad'}">${w}</span>`).join(' ');
+    }
+
+    async function startRecording() {
+      dbgLog('START', 'Start button clicked');
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setSpeechLog('<strong>Status:</strong> microphone API is not available in this browser', 'error');
+        dbgLog('MIC', 'navigator.mediaDevices.getUserMedia not available in this browser/context', 'error');
+        return;
+      }
+
+      try {
+        setSpeechLog('<strong>Status:</strong> requesting microphone access…');
+        dbgLog('MIC', 'Requesting getUserMedia({ audio: true })');
+        resetLiveGrade();
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        dbgLog('MIC', 'Microphone access granted', 'ok');
+
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+        dbgLog('RECORDER', `Using mimeType: "${mimeType || '(browser default)'}"`);
+        mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+        chunks = [];
+        liveStreaming = true;
+
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) {
+            const blob = event.data;
+            chunks.push(blob);
+            dbgLog('CHUNK', `New chunk captured: ${blob.size} bytes, type=${blob.type}`);
+            if (liveStreaming) {
+              uploadChunk(blob);
+            }
+          } else {
+            dbgLog('CHUNK', 'ondataavailable fired with 0-byte blob (ignored)', 'warn');
+          }
+        };
+
+        mediaRecorder.onerror = (e) => {
+          dbgLog('RECORDER', `MediaRecorder error: ${e.error?.message || e.error || 'unknown'}`, 'error');
+        };
+
+        mediaRecorder.onstop = async () => {
+          dbgLog('RECORDER', 'MediaRecorder stopped, building final blob from all chunks');
+          const audioBlob = new Blob(chunks, { type: mimeType || 'audio/webm' });
+          dbgLog('RECORDER', `Final blob: ${audioBlob.size} bytes from ${chunks.length} chunks`);
+          await uploadAudio(audioBlob);
+          if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+          }
+          stream = null;
+          liveStreaming = false;
+        };
+
+        mediaRecorder.start(1000);
+        dbgLog('RECORDER', 'mediaRecorder.start(1000) — emitting a chunk every 1000ms', 'ok');
+        els.startRec.disabled = true;
+        els.stopRec.disabled = false;
+        setSpeechLog('<strong>Status:</strong> live stream active… speak Quranic text');
+      } catch (err) {
+        setSpeechLog('<strong>Status:</strong> microphone permission error', 'error');
+        dbgLog('MIC', `getUserMedia failed: ${err.name}: ${err.message}`, 'error');
+        console.error(err);
+      }
+    }
+
+    async function stopRecording() {
+      dbgLog('STOP', 'Stop button clicked');
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        dbgLog('STOP', 'No active mediaRecorder to stop', 'warn');
+        return;
+      }
+      liveStreaming = false;
+      mediaRecorder.stop();
+      els.startRec.disabled = false;
+      els.stopRec.disabled = true;
+      setSpeechLog('<strong>Status:</strong> stopping live stream…');
+    }
+
+    async function uploadChunk(audioChunk) {
+      if (!audioChunk || audioChunk.size === 0) return;
+
+      const endpoint = '/api/transcribe-chunk';
+      const formData = new FormData();
+      const fileName = `chunk-${Date.now()}-${Math.round(Math.random() * 10000)}.webm`;
+
+      formData.append('audio', audioChunk, fileName);
+      dbgLog('CHUNK-UPLOAD', `POST ${endpoint} · file=${fileName} · size=${audioChunk.size} bytes`);
+
+      try {
+        const t0 = performance.now();
+        const response = await fetchWithTimeout(endpoint, {
+          method: 'POST',
+          body: formData
+        }, 15000);
+        const ms = Math.round(performance.now() - t0);
+
+        if (!response.ok) {
+          const text = await response.text();
+          setSpeechLog(`<strong>Status:</strong> chunk API failed (${response.status})`, 'error');
+          els.speechResult.textContent = text || 'Chunk upload failed';
+          dbgLog('CHUNK-UPLOAD', `Response ${response.status} ${response.statusText} in ${ms}ms · body: ${text.slice(0, 2000)}`, 'error');
+          return;
+        }
+
+        const rawText = await response.clone().text();
+        const json = await response.json();
+        dbgLog('CHUNK-UPLOAD', `Response ${response.status} in ${ms}ms · body: ${rawText.slice(0, 2000)}`, 'ok');
+        if (json.success) {
+          setSpeechLog(`<strong>Status:</strong> live chunk accepted · ${json.transcript || 'transcribed'}`, 'ok');
+          // NOTE: we don't yet know whether /transcribe-chunk returns a
+          // running cumulative transcript or just the delta for this
+          // chunk. Assume delta (most streaming ASR APIs work this way)
+          // and append with a space. If real API responses show it's
+          // actually cumulative, this should become a plain assignment
+          // instead of a concatenation — see PROJECT_DOCS.md follow-up.
+          if (json.transcript) {
+            fullTranscript = (fullTranscript + ' ' + json.transcript).trim();
+            dbgLog('TRANSCRIPT', `Accumulated so far: "${fullTranscript}"`);
+          } else {
+            dbgLog('TRANSCRIPT', 'Response had success=true but no transcript field/empty transcript', 'warn');
+          }
+          if (expectedFlat) {
+            const graded = ReciteMatch.gradeTranscript(expectedFlat, fullTranscript, false);
+            renderLiveGrade(graded);
+          } else {
+            els.speechResult.innerHTML = renderTranscriptWords(json.transcript || '');
+          }
+        } else {
+          setSpeechLog('<strong>Status:</strong> live chunk call returned missing success flag', 'error');
+          els.speechResult.textContent = JSON.stringify(json, null, 2);
+          dbgLog('CHUNK-UPLOAD', `success flag missing/false in response: ${JSON.stringify(json)}`, 'warn');
+        }
+      } catch (err) {
+        setSpeechLog('<strong>Status:</strong> live chunk request error', 'error');
+        els.speechResult.textContent = err.message;
+        dbgLog('CHUNK-UPLOAD', `fetch threw: ${err.name}: ${err.message}`, 'error');
+        console.error(err);
+      }
+    }
+
+    async function uploadAudio(audioBlob) {
+      const endpoint = RECORDING_UPLOAD_URL;
+      const formData = new FormData();
+      const fileName = `recording-${Date.now()}.webm`;
+
+      formData.append('audio', audioBlob, fileName);
+      dbgLog('SAVE', `POST ${endpoint} · file=${fileName} · size=${audioBlob.size} bytes`);
+
+      try {
+        setSpeechLog('<strong>Status:</strong> saving recording locally…');
+        const t0 = performance.now();
+        const response = await fetchWithTimeout(endpoint, {
+          method: 'POST',
+          body: formData
+        }, 15000);
+        const ms = Math.round(performance.now() - t0);
+
+        if (!response.ok) {
+          const text = await response.text();
+          setSpeechLog(`<strong>Status:</strong> local save failed (${response.status})`, 'error');
+          els.speechResult.textContent = text || 'No error details returned';
+          dbgLog('SAVE', `Response ${response.status} ${response.statusText} in ${ms}ms · body: ${text.slice(0, 2000)}`, 'error');
+          return;
+        }
+
+        const rawText = await response.clone().text();
+        const json = await response.json();
+        dbgLog('SAVE', `Response ${response.status} in ${ms}ms · body: ${rawText.slice(0, 2000)}`, 'ok');
+        setSpeechLog(`<strong>Status:</strong> saved locally: ${json.file}`, 'ok');
+        els.speechResult.textContent = JSON.stringify(json, null, 2);
+
+        try {
+          dbgLog('TRANSCRIBE', `POST /api/transcribe · file=${fileName} · size=${audioBlob.size} bytes`);
+          const t1 = performance.now();
+          const apiResponse = await fetchWithTimeout('/api/transcribe', {
+            method: 'POST',
+            body: formData
+          }, 35000);
+          const ms1 = Math.round(performance.now() - t1);
+
+          if (!apiResponse.ok) {
+            const apiText = await apiResponse.text();
+            setSpeechLog(`<strong>Status:</strong> saved locally, API request failed (${apiResponse.status})`, 'error');
+            els.speechResult.textContent = `${JSON.stringify(json, null, 2)}\n\nAPI: ${apiText}`;
+            dbgLog('TRANSCRIBE', `Response ${apiResponse.status} ${apiResponse.statusText} in ${ms1}ms · body: ${apiText.slice(0, 3000)}`, 'error');
+            return;
+          }
+
+          const apiRawText = await apiResponse.clone().text();
+          const apiData = await apiResponse.json();
+          dbgLog('TRANSCRIBE', `Response ${apiResponse.status} in ${ms1}ms · body: ${apiRawText.slice(0, 3000)}`, 'ok');
+          setSpeechLog(`<strong>Status:</strong> saved locally and transcribed by API`, 'ok');
+          els.speechResult.textContent = `${JSON.stringify(json, null, 2)}\n\n${JSON.stringify(apiData, null, 2)}`;
+          // Full-file transcript from /api/transcribe is authoritative for
+          // the whole recording, so re-grade against it directly rather
+          // than the accumulated chunk transcript (which may have drifted
+          // if any chunk uploads failed mid-stream).
+          if (expectedFlat && apiData.transcript) {
+            const graded = ReciteMatch.gradeTranscript(expectedFlat, apiData.transcript, true);
+            renderLiveGrade(graded);
+          }
+        } catch (apiErr) {
+          setSpeechLog('<strong>Status:</strong> saved locally, API service unavailable', 'error');
+          els.speechResult.textContent = `${JSON.stringify(json, null, 2)}\n\n${apiErr.message}`;
+          dbgLog('TRANSCRIBE', `fetch threw: ${apiErr.name}: ${apiErr.message}`, 'error');
+        }
+      } catch (err) {
+        setSpeechLog('<strong>Status:</strong> request error', 'error');
+        els.speechResult.textContent = err.message;
+        dbgLog('SAVE', `fetch threw: ${err.name}: ${err.message}`, 'error');
+        console.error(err);
+      }
+    }
+
     document.getElementById('btnTheme').onclick = () => {
       lightTheme = !lightTheme;
       document.body.classList.toggle('theme-light', lightTheme);
@@ -125,11 +579,13 @@
     document.getElementById('btnPrev').onclick = () => currentSurah > 1 && loadSurah(currentSurah-1);
     document.getElementById('btnNext').onclick = () => currentSurah < 114 && loadSurah(currentSurah+1);
     els.select.onchange = () => loadSurah(+els.select.value);
+    els.startRec.onclick = () => startRecording();
+    els.stopRec.onclick = () => stopRecording();
     document.getElementById('fontSize').oninput = e => document.documentElement.style.setProperty('--font-size', e.target.value+'px');
     (async () => {
       index = await (await fetch(`${DATA}/index.json`)).json();
       index.surahs.forEach(s => { const o = document.createElement('option'); o.value = s.surah; o.textContent = `${s.surah}. ${s.name_arabic} — ${s.name_simple}`; els.select.appendChild(o); });
-      loadSurah(1);
+      await loadSurah(1);
     })();
   </script>
 </body>
