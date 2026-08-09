@@ -56,12 +56,18 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             self.handle_recording_upload()
             return
         if parsed.path == '/api/transcribe':
-            self.handle_local_transcribe(use_tiny=False)
+            self.handle_local_transcribe(use_tiny=False, persist_to_disk=True)
             return
         if parsed.path == '/api/transcribe-chunk':
-            # Use the base model for chunked uploads as well, instead of
-            # keeping the tiny live-feedback branch as the only runtime path.
-            self.handle_local_transcribe(use_tiny=False)
+            # Base model for chunked/live uploads too (switched from tiny
+            # for better live accuracy). persist_to_disk=False here: this
+            # fires every ~1s with the whole cumulative recording so far,
+            # and /api/recordings already saves the final take when the
+            # user stops - writing every intermediate tick to disk too was
+            # pure redundant I/O on top of an already-heavier model call,
+            # and recordings/ would otherwise fill up with hundreds of
+            # near-duplicate growing files per session.
+            self.handle_local_transcribe(use_tiny=False, persist_to_disk=False)
             return
 
         self.send_error(404, 'Endpoint not found')
@@ -123,7 +129,7 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
         except Exception as exc:
             self.send_json(500, {'success': False, 'message': f'Upload failed: {exc}'})
 
-    def handle_local_transcribe(self, use_tiny: bool):
+    def handle_local_transcribe(self, use_tiny: bool, persist_to_disk: bool = True):
         parsed, err = self.parse_audio_multipart()
         if err:
             self.send_json(400, err)
@@ -131,9 +137,11 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
 
         try:
             audio_info = parsed
-            save_path = RECORDINGS_DIR / audio_info['file_name']
-            with open(save_path, 'wb') as f:
-                f.write(audio_info['payload'])
+
+            if persist_to_disk:
+                save_path = RECORDINGS_DIR / audio_info['file_name']
+                with open(save_path, 'wb') as f:
+                    f.write(audio_info['payload'])
 
             result = local_transcribe.transcribe(audio_info['payload'], use_tiny=use_tiny)
             status = 200 if result.get('success') else 500

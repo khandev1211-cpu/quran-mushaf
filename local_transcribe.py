@@ -22,12 +22,25 @@ that, startup just loads them from the local cache — no network needed.
 import io
 import logging
 import os
+import re
 import shutil
 import subprocess
 import tempfile
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 log = logging.getLogger('local_transcribe')
+
+# Whisper's control tokens (language, task, timestamp markers) - e.g.
+# "<|ar|><|transcribe|><|notimestamps|>". These are supposed to be dropped
+# by processor.batch_decode(..., skip_special_tokens=True), but the
+# tarteel-ai fine-tunes don't always register them as "special" tokens in
+# their tokenizer config, so they leak through as literal text glued
+# directly onto the first real word (no separating space). That corrupts
+# word-alignment in recite-match.js, since the first token becomes
+# "<|notimestamps|>بِسْمِ" instead of "بِسْمِ" and never matches the expected
+# word list. Strip them defensively regardless of what the tokenizer thinks
+# is "special".
+_SPECIAL_TOKEN_RE = re.compile(r'<\|[^|>]*\|>')
 
 TINY_MODEL_ID = 'tarteel-ai/whisper-tiny-ar-quran'
 BASE_MODEL_ID = 'tarteel-ai/whisper-base-ar-quran'
@@ -42,31 +55,6 @@ _state = {
 }
 
 
-def _model_repo_cache_dir(model_id: str) -> str | None:
-    """Return the local HuggingFace cache directory for a repo if present."""
-    model_repo = model_id.replace('/', '--')
-    hf_home = os.environ.get('HF_HOME') or os.environ.get('HUGGINGFACE_HUB_CACHE')
-    if not hf_home:
-        hf_home = os.path.join(os.path.expanduser('~'), '.cache', 'huggingface')
-    cache_dir = os.path.join(hf_home, 'hub', f'models--{model_repo}')
-    if os.path.isdir(cache_dir):
-        return cache_dir
-    return None
-
-
-def is_model_cached(model_id: str) -> bool:
-    """Probe the HuggingFace cache and answer whether a repo is already materialized."""
-    cache_dir = _model_repo_cache_dir(model_id)
-    if not cache_dir:
-        return False
-    return any(os.path.isdir(os.path.join(cache_dir, name)) for name in ('snapshots',))
-
-
-def base_model_ready() -> bool:
-    """Public gate used by runtime paths that need the full transcription model."""
-    return is_model_cached(BASE_MODEL_ID) and _state['base_model'] is not None
-
-
 def _find_ffmpeg():
     """
     Locate an ffmpeg binary. WebM audio from the browser's MediaRecorder
@@ -78,7 +66,6 @@ def _find_ffmpeg():
         'ffmpeg',
         'ffmpeg.exe',
         r'C:\ffmpeg\bin\ffmpeg.exe',
-        r'C:\ffmpeg\ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe',
         r'C:\ffmpeg\ffmpeg.exe',
         '/usr/bin/ffmpeg',
         '/usr/local/bin/ffmpeg',
@@ -121,26 +108,21 @@ def load_models():
         log.warning("ffmpeg not found on PATH. WebM audio chunks will fail to convert. "
                     "Install ffmpeg and make sure it's on PATH (see setup notes).")
 
-    log.info(f"Loading tiny model ({TINY_MODEL_ID}) for live chunk transcription...")
-    if is_model_cached(TINY_MODEL_ID):
-        _state['tiny_processor'] = AutoProcessor.from_pretrained(TINY_MODEL_ID)
-        _state['tiny_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(TINY_MODEL_ID)
-        _state['tiny_model'].to(_state['device'])
-        log.info("Tiny model ready.")
-    else:
-        log.warning(f"Tiny model cache is missing for {TINY_MODEL_ID}; startup will continue but tiny transcribe calls are not available.")
+    # Both /api/transcribe and /api/transcribe-chunk now call
+    # transcribe(use_tiny=False) - server.py switched the live-chunk
+    # endpoint to the base model too, for better live accuracy. The tiny
+    # model is no longer on any active code path, so skip loading it:
+    # that saves startup time and VRAM for a model nothing calls. If you
+    # want tiny back for live chunks (e.g. to claw back speed on a slower
+    # GPU), reinstate this block and pass use_tiny=True from server.py's
+    # transcribe-chunk handler again.
+    log.info("Tiny model loading skipped (not used - both endpoints run the base model).")
 
-    if not is_model_cached(BASE_MODEL_ID):
-        log.warning(
-            f"Base model cache is missing for {BASE_MODEL_ID}. "
-            "The /api/transcribe endpoint will refuse to run until it is downloaded."
-        )
-    else:
-        log.info(f"Loading base model ({BASE_MODEL_ID}) for final transcription...")
-        _state['base_processor'] = AutoProcessor.from_pretrained(BASE_MODEL_ID)
-        _state['base_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(BASE_MODEL_ID)
-        _state['base_model'].to(_state['device'])
-        log.info("Base model ready. Local transcription is live.")
+    log.info(f"Loading base model ({BASE_MODEL_ID}) for final transcription...")
+    _state['base_processor'] = AutoProcessor.from_pretrained(BASE_MODEL_ID)
+    _state['base_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(BASE_MODEL_ID)
+    _state['base_model'].to(_state['device'])
+    log.info("Base model ready. Local transcription is live.")
 
 
 def _webm_bytes_to_wav_path(raw: bytes) -> str:
@@ -187,33 +169,71 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
     import torch
     import librosa
 
-    if use_tiny:
-        if _state['tiny_model'] is None:
-            return {'success': False, 'message': 'Tiny local model is not loaded yet. Check server startup logs and model cache.'}
-    else:
-        if not base_model_ready():
-            return {
-                'success': False,
-                'message': f'Base model is not downloaded locally: {BASE_MODEL_ID}. Download it to ~/.cache/huggingface before using /api/transcribe.'
-            }
+    if _state['base_model'] is None:
+        return {'success': False, 'message': 'Local models are not loaded yet. Check server startup logs.'}
 
     wav_path = None
     try:
         wav_path = _webm_bytes_to_wav_path(audio_bytes)
         audio_array, sample_rate = librosa.load(wav_path, sr=16000)
 
-        if use_tiny:
+        if use_tiny and _state['tiny_model'] is not None:
             model, processor = _state['tiny_model'], _state['tiny_processor']
         else:
+            if use_tiny:
+                log.warning("use_tiny=True requested but tiny model isn't loaded - using base model instead.")
             model, processor = _state['base_model'], _state['base_processor']
 
-        inputs = processor(audio_array, sampling_rate=sample_rate, return_tensors='pt')
-        inputs = {k: v.to(_state['device']) for k, v in inputs.items()}
+        # Whisper's encoder only ever looks at 30 seconds per forward pass -
+        # that's a hard architectural limit (fixed-size conv + positional
+        # embeddings), not a config knob. A plain processor(...) call
+        # truncates/pads anything longer down to exactly 30s, so anything
+        # recited past that point never reached the model at all - the
+        # transcript would just stop advancing (that's why it stalled right
+        # after "الْمُسْتَقِيمَ" earlier).
+        #
+        # The "obvious" fix is generate(..., return_timestamps=True), which
+        # makes transformers run Whisper's built-in long-form algorithm
+        # (slide a 30s window internally, condition each window on the
+        # previous one's predicted timestamps). That works for the stock
+        # OpenAI checkpoints, but this project uses tarteel-ai's Quran
+        # fine-tune, which was trained on short verse clips WITHOUT
+        # timestamp supervision - so its timestamp predictions aren't
+        # calibrated, and long-form generation drifts into hallucinated
+        # garbage as soon as it crosses into the second window (confirmed:
+        # the first ~25s/4 ayahs transcribed correctly, everything after
+        # the 30s mark did not - and the one-shot final /api/transcribe
+        # call over the whole 40s clip produced the exact same garbage,
+        # ruling out a live-chunking-specific cause).
+        #
+        # Fix: do the windowing ourselves instead of trusting the model's
+        # timestamp head. Split into independent <=28s chunks and run the
+        # plain (non-timestamp) generate() on each one - the same call
+        # shape that worked correctly for the first 4 ayahs - then join the
+        # per-chunk text. Each chunk is self-contained, so there's no
+        # cross-window conditioning to drift.
+        chunk_seconds = 28
+        chunk_samples = chunk_seconds * sample_rate
+        total_samples = len(audio_array)
+        chunk_texts = []
 
-        with torch.no_grad():
-            generated_ids = model.generate(inputs['input_features'])
+        for start in range(0, max(total_samples, 1), chunk_samples):
+            segment = audio_array[start:start + chunk_samples]
+            if len(segment) == 0:
+                continue
 
-        text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0].strip()
+            inputs = processor(segment, sampling_rate=sample_rate, return_tensors='pt')
+            inputs = {k: v.to(_state['device']) for k, v in inputs.items()}
+
+            with torch.no_grad():
+                generated_ids = model.generate(inputs['input_features'])
+
+            segment_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0].strip()
+            segment_text = _SPECIAL_TOKEN_RE.sub('', segment_text).strip()
+            if segment_text:
+                chunk_texts.append(segment_text)
+
+        text = ' '.join(chunk_texts)
         return {'success': True, 'transcript': text}
 
     except Exception as exc:
