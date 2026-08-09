@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import socket
 import urllib.parse
 import mimetypes
 from email.parser import BytesParser
@@ -13,9 +14,19 @@ import local_transcribe
 ROOT = Path(__file__).resolve().parent
 WEB_ROOT = ROOT / 'web'
 RECORDINGS_DIR = ROOT / 'recordings'
-PORT = 8080
+HOST = os.environ.get('HOST', '0.0.0.0')
+PORT = int(os.environ.get('PORT', 8080))
 
 RECORDINGS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def get_lan_ip() -> str:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+            probe.connect(('8.8.8.8', 80))
+            return probe.getsockname()[0]
+    except Exception:
+        return '127.0.0.1'
 
 class QuranMushafHandler(SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):
@@ -48,7 +59,9 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             self.handle_local_transcribe(use_tiny=False)
             return
         if parsed.path == '/api/transcribe-chunk':
-            self.handle_local_transcribe(use_tiny=True)
+            # Use the base model for chunked uploads as well, instead of
+            # keeping the tiny live-feedback branch as the only runtime path.
+            self.handle_local_transcribe(use_tiny=False)
             return
 
         self.send_error(404, 'Endpoint not found')
@@ -173,7 +186,10 @@ if __name__ == '__main__':
           'since it downloads the models from HuggingFace)...')
     local_transcribe.load_models()
 
-    server = ThreadingHTTPServer(('0.0.0.0', PORT), QuranMushafHandler)
-    print(f'Quran Mushaf server running at http://localhost:{PORT}')
+    server = ThreadingHTTPServer((HOST, PORT), QuranMushafHandler)
+    lan_ip = get_lan_ip()
+    print(f'Quran Mushaf server listening on {HOST}:{PORT}')
+    print(f'Local browser URL: http://localhost:{PORT}/web/')
+    print(f'LAN / mobile URL: http://{lan_ip}:{PORT}/web/')
     print(f'Recordings directory: {RECORDINGS_DIR}')
     server.serve_forever()

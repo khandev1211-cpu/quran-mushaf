@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const ROOT = __dirname;
 const WEB_ROOT = path.join(ROOT, 'web');
 const RECORDINGS_DIR = path.join(ROOT, 'recordings');
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 8080;
 
 if (!fs.existsSync(RECORDINGS_DIR)) {
@@ -172,7 +173,9 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`Quran Mushaf server running at http://localhost:${PORT}`);
+server.listen(PORT, HOST, () => {
+  console.log(`Quran Mushaf server listening on ${HOST}:${PORT}`);
+  console.log(`Local browser URL: http://localhost:${PORT}/web/`);
+  console.log(`LAN / mobile URL: http://<your-computer-ip>:${PORT}/web/`);
   console.log(`Recordings directory: ${RECORDINGS_DIR}`);
 });

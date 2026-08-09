@@ -42,6 +42,31 @@ _state = {
 }
 
 
+def _model_repo_cache_dir(model_id: str) -> str | None:
+    """Return the local HuggingFace cache directory for a repo if present."""
+    model_repo = model_id.replace('/', '--')
+    hf_home = os.environ.get('HF_HOME') or os.environ.get('HUGGINGFACE_HUB_CACHE')
+    if not hf_home:
+        hf_home = os.path.join(os.path.expanduser('~'), '.cache', 'huggingface')
+    cache_dir = os.path.join(hf_home, 'hub', f'models--{model_repo}')
+    if os.path.isdir(cache_dir):
+        return cache_dir
+    return None
+
+
+def is_model_cached(model_id: str) -> bool:
+    """Probe the HuggingFace cache and answer whether a repo is already materialized."""
+    cache_dir = _model_repo_cache_dir(model_id)
+    if not cache_dir:
+        return False
+    return any(os.path.isdir(os.path.join(cache_dir, name)) for name in ('snapshots',))
+
+
+def base_model_ready() -> bool:
+    """Public gate used by runtime paths that need the full transcription model."""
+    return is_model_cached(BASE_MODEL_ID) and _state['base_model'] is not None
+
+
 def _find_ffmpeg():
     """
     Locate an ffmpeg binary. WebM audio from the browser's MediaRecorder
@@ -97,16 +122,25 @@ def load_models():
                     "Install ffmpeg and make sure it's on PATH (see setup notes).")
 
     log.info(f"Loading tiny model ({TINY_MODEL_ID}) for live chunk transcription...")
-    _state['tiny_processor'] = AutoProcessor.from_pretrained(TINY_MODEL_ID)
-    _state['tiny_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(TINY_MODEL_ID)
-    _state['tiny_model'].to(_state['device'])
-    log.info("Tiny model ready.")
+    if is_model_cached(TINY_MODEL_ID):
+        _state['tiny_processor'] = AutoProcessor.from_pretrained(TINY_MODEL_ID)
+        _state['tiny_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(TINY_MODEL_ID)
+        _state['tiny_model'].to(_state['device'])
+        log.info("Tiny model ready.")
+    else:
+        log.warning(f"Tiny model cache is missing for {TINY_MODEL_ID}; startup will continue but tiny transcribe calls are not available.")
 
-    log.info(f"Loading base model ({BASE_MODEL_ID}) for final transcription...")
-    _state['base_processor'] = AutoProcessor.from_pretrained(BASE_MODEL_ID)
-    _state['base_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(BASE_MODEL_ID)
-    _state['base_model'].to(_state['device'])
-    log.info("Base model ready. Local transcription is live.")
+    if not is_model_cached(BASE_MODEL_ID):
+        log.warning(
+            f"Base model cache is missing for {BASE_MODEL_ID}. "
+            "The /api/transcribe endpoint will refuse to run until it is downloaded."
+        )
+    else:
+        log.info(f"Loading base model ({BASE_MODEL_ID}) for final transcription...")
+        _state['base_processor'] = AutoProcessor.from_pretrained(BASE_MODEL_ID)
+        _state['base_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(BASE_MODEL_ID)
+        _state['base_model'].to(_state['device'])
+        log.info("Base model ready. Local transcription is live.")
 
 
 def _webm_bytes_to_wav_path(raw: bytes) -> str:
@@ -153,8 +187,15 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
     import torch
     import librosa
 
-    if _state['tiny_model'] is None:
-        return {'success': False, 'message': 'Local models are not loaded yet. Check server startup logs.'}
+    if use_tiny:
+        if _state['tiny_model'] is None:
+            return {'success': False, 'message': 'Tiny local model is not loaded yet. Check server startup logs and model cache.'}
+    else:
+        if not base_model_ready():
+            return {
+                'success': False,
+                'message': f'Base model is not downloaded locally: {BASE_MODEL_ID}. Download it to ~/.cache/huggingface before using /api/transcribe.'
+            }
 
     wav_path = None
     try:
