@@ -45,8 +45,8 @@
       background: rgba(212,175,55,0.08); border-bottom: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); direction: ltr; }
     .page-body { padding: 24px 32px; }
     .mushaf-line { font-weight: bold; font-size: var(--font-size); line-height: 2.3; direction: rtl;
-      text-align: justify; text-align-last: center; color: var(--cream); margin-bottom: 0.25em; }
-    .glyph { display: inline-block; padding: 0 1px; border-radius: 4px; transition: color .15s; }
+      text-align: center; color: var(--cream); margin-bottom: 0.25em; }
+    .glyph { display: inline-block; padding: 0; border-radius: 4px; transition: color .15s; }
     .glyph.ok { color: #4caf50; }
     .glyph.bad { color: #f44336; }
     .glyph.missed { color: #ffc107; }
@@ -268,7 +268,7 @@
       return `<span class="glyph ayah-marker">${g}</span>`;
     }
     function renderSection(sec) {
-      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(tagGlyph).join(' ')}</p>`).join('');
+      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(tagGlyph).join('')}</p>`).join('');
       return `<section class="page-section" id="page-${sec.page}"><div class="page-header"><span>صفحہ ${sec.page}</span><span>${sec.font}.woff</span></div><div class="page-body">${lines}</div></section>`;
     }
     async function loadSurah(num) {
