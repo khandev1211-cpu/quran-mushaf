@@ -46,7 +46,10 @@
     .page-body { padding: 24px 32px; }
     .mushaf-line { font-weight: bold; font-size: var(--font-size); line-height: 2.3; direction: rtl;
       text-align: justify; text-align-last: center; color: var(--cream); margin-bottom: 0.25em; }
-    .glyph { display: inline-block; padding: 0 1px; }
+    .glyph { display: inline-block; padding: 0 1px; border-radius: 4px; transition: background-color .15s, color .15s; }
+    .glyph.ok { background: rgba(40,255,110,0.18); color: #8aff9a; }
+    .glyph.bad { background: rgba(255,80,80,0.16); color: #ff9b9b; }
+    .glyph.missed { background: rgba(255,210,60,0.16); color: #ffe28a; }
     .status { text-align: center; padding: 60px 20px; color: var(--muted); }
     .status.error { color: var(--err); }
     .page-jump { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
@@ -63,37 +66,17 @@
     .word-status { display: inline-block; margin-right: 4px; padding: 2px 6px; border-radius: 5px; background: rgba(255,255,255,0.06); }
     .word-status.ok { background: rgba(40,255,110,0.18); color: #8aff9a; border: 1px solid #44ff87; }
     .word-status.bad { background: rgba(255,80,80,0.12); color: #ff9b9b; border: 1px solid #ff6a6a; }
-    .live-grade-wrap { margin-top: 12px; }
-    .live-grade-legend { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.75rem; }
+    .live-grade-legend { display: flex; gap: 10px; margin: 10px 0 14px; font-size: 0.75rem; }
     .legend-chip { padding: 3px 10px; border-radius: 6px; }
     .legend-chip.ok { background: rgba(40,255,110,0.18); color: #8aff9a; border: 1px solid #44ff87; }
     .legend-chip.bad { background: rgba(255,80,80,0.12); color: #ff9b9b; border: 1px solid #ff6a6a; }
     .legend-chip.missed { background: rgba(255,210,60,0.14); color: #ffe28a; border: 1px solid #ffd23c; }
-    .live-grade-text { direction: rtl; text-align: right; font-size: 1.5rem; line-height: 2.4; background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px 20px; }
     .live-word { display: inline-block; margin: 0 3px; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.05); transition: background 0.2s, color 0.2s; }
     .live-word.ok { background: rgba(40,255,110,0.2); color: #8aff9a; }
     .live-word.bad { background: rgba(255,80,80,0.18); color: #ff9b9b; }
     .live-word.missed { background: rgba(255,210,60,0.2); color: #ffe28a; }
     .live-word.pending { color: var(--muted); }
 
-    .debug-panel { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
-    .debug-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-    .debug-panel-header h3 { margin: 0; font-size: 0.95rem; color: var(--muted); }
-    .debug-panel-actions { display: flex; align-items: center; gap: 8px; }
-    .debug-count { font-size: 0.75rem; color: var(--muted); }
-    .btn-small { padding: 4px 10px; font-size: 0.75rem; }
-    .debug-log { max-height: 320px; overflow-y: auto; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; font-family: 'Courier New', monospace; font-size: 0.72rem; line-height: 1.5; }
-    .debug-entry { padding: 6px 8px; margin-bottom: 4px; border-radius: 5px; border-left: 3px solid #555; white-space: pre-wrap; word-break: break-word; }
-    .debug-entry.dbg-info { border-left-color: #6aa9ff; background: rgba(106,169,255,0.06); }
-    .debug-entry.dbg-ok { border-left-color: #44ff87; background: rgba(68,255,135,0.06); }
-    .debug-entry.dbg-warn { border-left-color: #ffd23c; background: rgba(255,210,60,0.06); }
-    .debug-entry.dbg-error { border-left-color: #ff6a6a; background: rgba(255,106,106,0.08); }
-    .debug-time { color: #888; margin-right: 6px; }
-    .debug-tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-weight: bold; margin-right: 6px; font-size: 0.68rem; }
-    .debug-entry.dbg-info .debug-tag { background: rgba(106,169,255,0.2); color: #a9cbff; }
-    .debug-entry.dbg-ok .debug-tag { background: rgba(68,255,135,0.2); color: #8aff9a; }
-    .debug-entry.dbg-warn .debug-tag { background: rgba(255,210,60,0.2); color: #ffe28a; }
-    .debug-entry.dbg-error .debug-tag { background: rgba(255,106,106,0.2); color: #ff9b9b; }
     footer { text-align: center; margin-top: 32px; font-size: 0.75rem; color: var(--muted); }
   </style>
 </head>
@@ -123,27 +106,13 @@
       <div class="speech-log" id="speechLog">
         <strong>Status:</strong> idle · ready for microphone
       </div>
-      <div class="live-grade-wrap" id="liveGradeWrap" hidden>
-        <div class="live-grade-legend">
-          <span class="legend-chip ok">صحیح</span>
-          <span class="legend-chip bad">غلط</span>
-          <span class="legend-chip missed">چھوٹ گیا</span>
-        </div>
-        <div class="live-grade-text" id="liveGradeText"></div>
+      <div class="live-grade-legend" id="liveGradeLegend" hidden>
+        <span class="legend-chip ok">صحیح</span>
+        <span class="legend-chip bad">غلط</span>
+        <span class="legend-chip missed">چھوٹ گیا</span>
       </div>
       <div class="speech-result" id="speechResult"></div>
 
-      <div class="debug-panel">
-        <div class="debug-panel-header">
-          <h3>Debug Log</h3>
-          <div class="debug-panel-actions">
-            <span id="debugCount" class="debug-count">0 entries</span>
-            <button class="btn btn-small" id="btnCopyLog">📋 Copy log</button>
-            <button class="btn btn-small" id="btnClearLog">🗑 Clear</button>
-          </div>
-        </div>
-        <div class="debug-log" id="debugLog"></div>
-      </div>
     </div>
     <div class="meta-bar" id="metaBar"><strong>—</strong><span id="metaDetail">لوڈ ہو رہا ہے...</span></div>
     <div class="page-jump" id="pageJump" hidden></div>
@@ -168,74 +137,20 @@
       stopRec: document.getElementById('btnStopRec'),
       speechLog: document.getElementById('speechLog'),
       speechResult: document.getElementById('speechResult'),
-      liveGradeWrap: document.getElementById('liveGradeWrap'),
-      liveGradeText: document.getElementById('liveGradeText'),
-      debugLog: document.getElementById('debugLog'),
-      debugCount: document.getElementById('debugCount'),
-      btnCopyLog: document.getElementById('btnCopyLog'),
-      btnClearLog: document.getElementById('btnClearLog')
+      liveGradeLegend: document.getElementById('liveGradeLegend')
     };
 
-    // ---- Debug / diagnostics log ------------------------------------------
-    // Every meaningful event (mic permission, recorder state, each chunk
-    // upload's request+response, server errors, JS exceptions) is appended
-    // here as plain text with a timestamp, so the user can scroll back
-    // through everything that happened in this session and copy it out —
-    // rather than errors silently overwriting the single-line status text
-    // above, which made it impossible to see what actually went wrong.
-    const debugEntries = []; // { time, level, tag, message }
-
+    // ---- Diagnostics (console only) ---------------------------------------
+    // The in-page debug panel (visible log list + copy/clear buttons) has
+    // been removed now that recording/transcription/grading are working
+    // reliably - dbgLog() is kept as a thin console.log wrapper instead of
+    // being deleted outright, since call sites throughout this file still
+    // call it; removing the panel here is enough to stop showing it to end
+    // users while leaving every call site harmless.
     function dbgLog(tag, message, level = 'info') {
-      const time = new Date().toISOString().split('T')[1].replace('Z', '');
-      const entry = { time, level, tag, message: String(message) };
-      debugEntries.push(entry);
-
-      const div = document.createElement('div');
-      div.className = `debug-entry dbg-${level}`;
-      div.innerHTML = `<span class="debug-time">${time}</span><span class="debug-tag">${tag}</span>${escapeHtml(entry.message)}`;
-      els.debugLog.appendChild(div);
-      els.debugLog.scrollTop = els.debugLog.scrollHeight;
-      els.debugCount.textContent = `${debugEntries.length} entries`;
+      const fn = level === 'error' ? console.error : level === 'warn' ? console.warn : console.log;
+      fn(`[${tag}]`, message);
     }
-
-    function escapeHtml(s) {
-      const d = document.createElement('div');
-      d.textContent = s;
-      return d.innerHTML;
-    }
-
-    function debugLogAsText() {
-      return debugEntries
-        .map(e => `[${e.time}] [${e.level.toUpperCase()}] [${e.tag}] ${e.message}`)
-        .join('\n');
-    }
-
-    els.btnCopyLog.addEventListener('click', async () => {
-      const text = debugLogAsText() || '(no log entries yet)';
-      try {
-        await navigator.clipboard.writeText(text);
-        els.btnCopyLog.textContent = '✅ Copied!';
-      } catch (err) {
-        // Clipboard API can fail (permissions, non-secure context). Fall
-        // back to a selectable textarea so the user can still manually
-        // copy instead of hitting a dead end.
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:200px;z-index:9999;';
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        els.btnCopyLog.textContent = '⚠️ Select & copy manually';
-        setTimeout(() => document.body.removeChild(ta), 8000);
-      }
-      setTimeout(() => { els.btnCopyLog.textContent = '📋 Copy log'; }, 2000);
-    });
-
-    els.btnClearLog.addEventListener('click', () => {
-      debugEntries.length = 0;
-      els.debugLog.innerHTML = '';
-      els.debugCount.textContent = '0 entries';
-    });
 
     // Catch anything that slips through try/catch blocks elsewhere too.
     window.addEventListener('error', (e) => {
@@ -251,9 +166,23 @@
     // glyphs (per-letter ligatures tied to a specific font), not plain
     // Arabic words, so they can't be diffed against a speech transcript.
     // See data/expected/<surah>.json for the word lists this reads.
+    //
+    // Grading is now painted directly onto the rendered mushaf glyphs
+    // instead of a separate plain-text word list. This assumes QCF mushaf
+    // fonts encode one glyph per WORD (the standard convention for these
+    // fonts - each glyph is a precisely-shaped ligature for a whole word
+    // as it appears on that specific mushaf page), so glyph order within
+    // a page should line up 1:1 with expectedFlat's word order for the
+    // same surah. Each glyph span gets a data-widx="<n>" attribute (a
+    // running index across the whole surah, assigned in renderSection)
+    // that grading looks up by array index - no text parsing needed.
+    // If a surah's glyph count and expected-word count ever don't match,
+    // grading just doesn't reach every glyph (logged to console) rather
+    // than crashing or mis-colouring the wrong word.
     const LIVE_GRADING_SURAHS = new Set([1]);
     let expectedFlat = null;      // flattened expected words for the active surah
     let fullTranscript = '';      // running transcript text accumulated from chunks
+    let nextGlyphWordIdx = 0;     // running word-index counter while building a surah's HTML
 
     async function loadExpectedWords(surahNum) {
       if (!LIVE_GRADING_SURAHS.has(surahNum)) {
@@ -273,14 +202,21 @@
     }
 
     function renderLiveGrade(graded) {
-      if (!graded) {
-        els.liveGradeWrap.hidden = true;
-        return;
+      els.liveGradeLegend.hidden = !graded;
+      if (!graded) return;
+
+      const glyphSpans = els.display.querySelectorAll('.glyph[data-widx]');
+      if (glyphSpans.length !== expectedFlat.length) {
+        console.warn(`Glyph count (${glyphSpans.length}) doesn't match expected word count `
+          + `(${expectedFlat.length}) for this surah - grading may miss the tail end or `
+          + `mis-align. Check that data/surahs and data/expected agree on word segmentation.`);
       }
-      els.liveGradeWrap.hidden = false;
-      els.liveGradeText.innerHTML = graded.map(w =>
-        `<span class="live-word ${w.status}">${w.word.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]/g,'')}</span>`
-      ).join('');
+      graded.forEach((w, i) => {
+        const span = els.display.querySelector(`.glyph[data-widx="${i}"]`);
+        if (!span) return;
+        span.classList.remove('ok', 'bad', 'missed');
+        if (w.status && w.status !== 'pending') span.classList.add(w.status);
+      });
     }
 
     function resetLiveGrade() {
@@ -300,7 +236,7 @@
       return (document.fonts ? document.fonts.load(`bold 16px '${id}'`) : Promise.resolve()).then(() => loadedFonts.add(id));
     }
     function renderSection(sec) {
-      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(g=>`<span class="glyph">${g}</span>`).join(' ')}</p>`).join('');
+      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(g=>`<span class="glyph" data-widx="${nextGlyphWordIdx++}">${g}</span>`).join(' ')}</p>`).join('');
       return `<section class="page-section" id="page-${sec.page}"><div class="page-header"><span>صفحہ ${sec.page}</span><span>${sec.font}.woff</span></div><div class="page-body">${lines}</div></section>`;
     }
     async function loadSurah(num) {
@@ -314,6 +250,7 @@
       if (token !== loadToken) return;
       document.querySelector('#metaBar strong').textContent = `${data.name_arabic} (${data.name_simple})`;
       els.meta.textContent = `سورہ ${data.surah} · ${data.verses_count} آیات · صفحات ${data.pages[0]}–${data.pages[data.pages.length-1]}`;
+      nextGlyphWordIdx = 0;
       els.display.innerHTML = data.sections.map(renderSection).join('');
       els.jump.hidden = data.pages.length <= 1;
       if (!els.jump.hidden) {

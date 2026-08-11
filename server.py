@@ -59,12 +59,13 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             self.handle_local_transcribe(use_tiny=False, persist_to_disk=True)
             return
         if parsed.path == '/api/transcribe-chunk':
-            # Base model for chunked/live uploads too (switched from tiny
-            # for better live accuracy). persist_to_disk=False here: this
-            # fires every ~1s with the whole cumulative recording so far,
-            # and /api/recordings already saves the final take when the
-            # user stops - writing every intermediate tick to disk too was
-            # pure redundant I/O on top of an already-heavier model call,
+            # Base model for both endpoints (switched back from tiny - tiny
+            # made the dropped/garbled-word issues noticeably worse, e.g.
+            # missing "بِسْمِ اللَّهِ..." even more often than base did).
+            # persist_to_disk=False here: this fires every ~1s with the
+            # whole cumulative recording so far, and /api/recordings
+            # already saves the final take when the user stops - writing
+            # every intermediate tick to disk too was pure redundant I/O,
             # and recordings/ would otherwise fill up with hundreds of
             # near-duplicate growing files per session.
             self.handle_local_transcribe(use_tiny=False, persist_to_disk=False)

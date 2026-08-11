@@ -108,21 +108,32 @@ def load_models():
         log.warning("ffmpeg not found on PATH. WebM audio chunks will fail to convert. "
                     "Install ffmpeg and make sure it's on PATH (see setup notes).")
 
-    # Both /api/transcribe and /api/transcribe-chunk now call
-    # transcribe(use_tiny=False) - server.py switched the live-chunk
-    # endpoint to the base model too, for better live accuracy. The tiny
-    # model is no longer on any active code path, so skip loading it:
-    # that saves startup time and VRAM for a model nothing calls. If you
-    # want tiny back for live chunks (e.g. to claw back speed on a slower
-    # GPU), reinstate this block and pass use_tiny=True from server.py's
-    # transcribe-chunk handler again.
-    log.info("Tiny model loading skipped (not used - both endpoints run the base model).")
-
-    log.info(f"Loading base model ({BASE_MODEL_ID}) for final transcription...")
+    # Base model only - more accurate than tiny, which is worth the extra
+    # latency given the recurring dropped/garbled word issues (tiny made
+    # them noticeably more frequent, e.g. missing "بِسْمِ اللَّهِ..." even
+    # more often than base did).
+    log.info(f"Loading base model ({BASE_MODEL_ID})...")
     _state['base_processor'] = AutoProcessor.from_pretrained(BASE_MODEL_ID)
     _state['base_model'] = AutoModelForSpeechSeq2Seq.from_pretrained(BASE_MODEL_ID)
     _state['base_model'].to(_state['device'])
     log.info("Base model ready. Local transcription is live.")
+
+    log.info("Tiny model loading skipped (not used - both endpoints run the base model).")
+
+    # NOTE: model.generate() logs a one-time info message about a
+    # SuppressTokensAtBeginLogitsProcessor being "created in generate()"
+    # and taking precedence over the one implied by this checkpoint's
+    # generation_config.forced_decoder_ids. That forced_decoder_ids is
+    # how this single-language (Arabic-only) fine-tune tells Whisper
+    # "language=ar, task=transcribe" - it's NOT a legacy/outdated
+    # leftover to clear out here. (Tried clearing it and passing
+    # language='arabic', task='transcribe' to generate() directly
+    # instead - transformers rejected that with "generation config is
+    # outdated and is thus not compatible with the language argument",
+    # because this checkpoint's config was never set up with the
+    # multilingual lang_to_id mapping that newer language=/task= kwargs
+    # need. So: leave forced_decoder_ids alone, don't pass language=/
+    # task= to generate(), and treat that log line as harmless.
 
 
 def _webm_bytes_to_wav_path(raw: bytes) -> str:
@@ -169,7 +180,7 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
     import torch
     import librosa
 
-    if _state['base_model'] is None:
+    if _state['tiny_model'] is None and _state['base_model'] is None:
         return {'success': False, 'message': 'Local models are not loaded yet. Check server startup logs.'}
 
     wav_path = None
@@ -177,12 +188,18 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
         wav_path = _webm_bytes_to_wav_path(audio_bytes)
         audio_array, sample_rate = librosa.load(wav_path, sr=16000)
 
-        if use_tiny and _state['tiny_model'] is not None:
-            model, processor = _state['tiny_model'], _state['tiny_processor']
-        else:
-            if use_tiny:
+        if use_tiny:
+            if _state['tiny_model'] is None:
                 log.warning("use_tiny=True requested but tiny model isn't loaded - using base model instead.")
-            model, processor = _state['base_model'], _state['base_processor']
+                model, processor = _state['base_model'], _state['base_processor']
+            else:
+                model, processor = _state['tiny_model'], _state['tiny_processor']
+        else:
+            if _state['base_model'] is None:
+                log.warning("use_tiny=False requested but base model isn't loaded - using tiny model instead.")
+                model, processor = _state['tiny_model'], _state['tiny_processor']
+            else:
+                model, processor = _state['base_model'], _state['base_processor']
 
         # Whisper's encoder only ever looks at 30 seconds per forward pass -
         # that's a hard architectural limit (fixed-size conv + positional
@@ -207,12 +224,23 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
         # ruling out a live-chunking-specific cause).
         #
         # Fix: do the windowing ourselves instead of trusting the model's
-        # timestamp head. Split into independent <=28s chunks and run the
-        # plain (non-timestamp) generate() on each one - the same call
-        # shape that worked correctly for the first 4 ayahs - then join the
+        # timestamp head. Split into independent chunks and run the plain
+        # (non-timestamp) generate() on each one - the same call shape
+        # that worked correctly for individual verses - then join the
         # per-chunk text. Each chunk is self-contained, so there's no
         # cross-window conditioning to drift.
-        chunk_seconds = 28
+        #
+        # Window size: this fine-tune was trained on short, single-verse
+        # clips (a few seconds each), not continuous multi-ayah audio.
+        # 28s-wide windows are already well outside that training
+        # distribution, and testing confirmed the model would sometimes
+        # skip its own opening words on a window that long (e.g. dropping
+        # "بِسْمِ اللَّهِ..." entirely even though it transcribed correctly
+        # in every short 2-3s live chunk during the same recording).
+        # Using a narrower ~10s window keeps each chunk closer to the
+        # length the model actually saw in training, which should make
+        # this "skip the start" failure far less likely.
+        chunk_seconds = 10
         chunk_samples = chunk_seconds * sample_rate
         total_samples = len(audio_array)
         chunk_texts = []
