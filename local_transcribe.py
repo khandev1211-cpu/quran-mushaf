@@ -237,10 +237,14 @@ def transcribe(audio_bytes: bytes, use_tiny: bool = False) -> dict:
         # skip its own opening words on a window that long (e.g. dropping
         # "بِسْمِ اللَّهِ..." entirely even though it transcribed correctly
         # in every short 2-3s live chunk during the same recording).
-        # Using a narrower ~10s window keeps each chunk closer to the
-        # length the model actually saw in training, which should make
-        # this "skip the start" failure far less likely.
-        chunk_seconds = 10
+        # Even at 10s the model still drops the opening words of a window
+        # (confirmed: reciting Bismillah alone transcribes fine, but once
+        # the cumulative recording grows past 10s the re-transcription
+        # drops "بِسْمِ اللَّهِ..." from the first window, which then
+        # grades those words as yellow/missed). Dropping to ~5s keeps each
+        # chunk much closer to the short verse clips the model was trained
+        # on, which makes the "skip the start" failure far less likely.
+        chunk_seconds = 5
         chunk_samples = chunk_seconds * sample_rate
         total_samples = len(audio_array)
         chunk_texts = []
