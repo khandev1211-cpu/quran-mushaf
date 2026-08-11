@@ -167,22 +167,39 @@
     // Arabic words, so they can't be diffed against a speech transcript.
     // See data/expected/<surah>.json for the word lists this reads.
     //
-    // Grading is now painted directly onto the rendered mushaf glyphs
-    // instead of a separate plain-text word list. This assumes QCF mushaf
-    // fonts encode one glyph per WORD (the standard convention for these
-    // fonts - each glyph is a precisely-shaped ligature for a whole word
-    // as it appears on that specific mushaf page), so glyph order within
-    // a page should line up 1:1 with expectedFlat's word order for the
-    // same surah. Each glyph span gets a data-widx="<n>" attribute (a
-    // running index across the whole surah, assigned in renderSection)
-    // that grading looks up by array index - no text parsing needed.
-    // If a surah's glyph count and expected-word count ever don't match,
-    // grading just doesn't reach every glyph (logged to console) rather
-    // than crashing or mis-colouring the wrong word.
+    // Grading is painted directly onto the rendered mushaf glyphs instead
+    // of a separate plain-text word list. QCF mushaf fonts encode one
+    // glyph per WORD, but each ayah's glyphs are ALSO followed by a
+    // decorative ayah-end marker glyph (the small circled ayah number) -
+    // that marker is not something the reciter says, so it must not
+    // consume a data-widx slot or get graded like a real word (an earlier
+    // version counted every glyph including markers, which shifted every
+    // subsequent word's index and made both the markers and the words
+    // after them show wrong colours).
+    //
+    // There's no `type` field in the glyph JSON to tell markers and words
+    // apart directly, so instead this walks the glyph stream using the
+    // word-count-per-ayah we already trust from data/expected/<surah>.json:
+    // consume that many glyphs as real words, then treat the next single
+    // glyph as that ayah's end-marker (skip it, no data-widx), then move
+    // to the next ayah's word count. That only works if expected words are
+    // loaded BEFORE the page HTML is built, so loadSurah below loads them
+    // first now instead of after rendering.
     const LIVE_GRADING_SURAHS = new Set([1]);
     let expectedFlat = null;      // flattened expected words for the active surah
     let fullTranscript = '';      // running transcript text accumulated from chunks
     let nextGlyphWordIdx = 0;     // running word-index counter while building a surah's HTML
+    let glyphAyahState = null;    // { counts, ayahIdx, remainingInAyah } or null when not grading
+
+    function wordCountsPerAyah(flat) {
+      const counts = [];
+      let curAyah = null;
+      for (const w of flat) {
+        if (w.ayah !== curAyah) { counts.push(0); curAyah = w.ayah; }
+        counts[counts.length - 1]++;
+      }
+      return counts;
+    }
 
     async function loadExpectedWords(surahNum) {
       if (!LIVE_GRADING_SURAHS.has(surahNum)) {
@@ -207,7 +224,7 @@
 
       const glyphSpans = els.display.querySelectorAll('.glyph[data-widx]');
       if (glyphSpans.length !== expectedFlat.length) {
-        console.warn(`Glyph count (${glyphSpans.length}) doesn't match expected word count `
+        console.warn(`Word-glyph count (${glyphSpans.length}) doesn't match expected word count `
           + `(${expectedFlat.length}) for this surah - grading may miss the tail end or `
           + `mis-align. Check that data/surahs and data/expected agree on word segmentation.`);
       }
@@ -235,8 +252,23 @@
       document.head.appendChild(s);
       return (document.fonts ? document.fonts.load(`bold 16px '${id}'`) : Promise.resolve()).then(() => loadedFonts.add(id));
     }
+    function tagGlyph(g) {
+      if (!glyphAyahState) return `<span class="glyph">${g}</span>`;
+
+      if (glyphAyahState.remainingInAyah > 0) {
+        const span = `<span class="glyph" data-widx="${nextGlyphWordIdx}">${g}</span>`;
+        nextGlyphWordIdx++;
+        glyphAyahState.remainingInAyah--;
+        return span;
+      }
+      // This glyph is the current ayah's end-marker - consume it without
+      // a data-widx, then advance to the next ayah's word count.
+      glyphAyahState.ayahIdx++;
+      glyphAyahState.remainingInAyah = glyphAyahState.counts[glyphAyahState.ayahIdx] ?? 0;
+      return `<span class="glyph ayah-marker">${g}</span>`;
+    }
     function renderSection(sec) {
-      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(g=>`<span class="glyph" data-widx="${nextGlyphWordIdx++}">${g}</span>`).join(' ')}</p>`).join('');
+      const lines = sec.lines.map(r => `<p class="mushaf-line" style="font-family:'${sec.font}',serif">${r.glyphs.map(tagGlyph).join(' ')}</p>`).join('');
       return `<section class="page-section" id="page-${sec.page}"><div class="page-header"><span>صفحہ ${sec.page}</span><span>${sec.font}.woff</span></div><div class="page-body">${lines}</div></section>`;
     }
     async function loadSurah(num) {
@@ -250,14 +282,20 @@
       if (token !== loadToken) return;
       document.querySelector('#metaBar strong').textContent = `${data.name_arabic} (${data.name_simple})`;
       els.meta.textContent = `سورہ ${data.surah} · ${data.verses_count} آیات · صفحات ${data.pages[0]}–${data.pages[data.pages.length-1]}`;
+
+      // Must load expected words BEFORE rendering now, so tagGlyph() knows
+      // each ayah's word count while walking the glyph stream.
+      await loadExpectedWords(num);
       nextGlyphWordIdx = 0;
+      const counts = expectedFlat ? wordCountsPerAyah(expectedFlat) : null;
+      glyphAyahState = (counts && counts.length) ? { counts, ayahIdx: 0, remainingInAyah: counts[0] } : null;
+
       els.display.innerHTML = data.sections.map(renderSection).join('');
       els.jump.hidden = data.pages.length <= 1;
       if (!els.jump.hidden) {
         els.jump.innerHTML = data.pages.map(p => `<button type="button" data-page="${p}">${p}</button>`).join('');
         els.jump.querySelectorAll('button').forEach(b => b.onclick = () => document.getElementById('page-'+b.dataset.page)?.scrollIntoView({behavior:'smooth'}));
       }
-      await loadExpectedWords(num);
       resetLiveGrade();
     }
     // Wrap fetch with an explicit timeout + logging so a hung request (DNS
