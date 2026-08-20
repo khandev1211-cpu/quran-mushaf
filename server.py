@@ -190,10 +190,30 @@ class QuranMushafHandler(SimpleHTTPRequestHandler):
             # traceback from the socketserver internals.
             print(f'[send_json] client disconnected before response was sent: {exc}')
 
+def _load_models_in_background():
+    """
+    Load the Whisper models in a background thread so the HTTP server starts
+    listening immediately. On first run the models download from HuggingFace
+    (a few hundred MB), which can take many minutes - if we blocked on that
+    before starting the server, any client (e.g. via a forwarded public port)
+    would just hang on "loading" until the download finished.
+    """
+    import threading
+
+    def _load():
+        try:
+            local_transcribe.load_models()
+        except Exception as exc:
+            print(f'[model-load-error] {type(exc).__name__}: {exc}')
+
+    threading.Thread(target=_load, daemon=True, name='model-loader').start()
+
+
 if __name__ == '__main__':
-    print('Loading local Quran transcription models (this may take a while on first run, '
-          'since it downloads the models from HuggingFace)...')
-    local_transcribe.load_models()
+    print('Starting server immediately; loading local Quran transcription models '
+          'in the background (first run downloads them from HuggingFace, which '
+          'may take a while)...')
+    _load_models_in_background()
 
     server = ThreadingHTTPServer((HOST, PORT), QuranMushafHandler)
     lan_ip = get_lan_ip()

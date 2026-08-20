@@ -112,9 +112,16 @@
   <script src="recite-match.js"></script>
   <script>
     const DATA = '../data', WOFF = '../woff';
-    const API_BASE = 'https://quran.alifislam.cloud';
+    // All backend calls (recording save, chunk transcription, full
+    // transcription) now go through this single devtunnel base URL
+    // instead of relative paths, since the page is no longer served from
+    // the same origin as the API.
+    const SERVER_BASE = 'https://rsjffbxb-8080.inc1.devtunnels.ms';
+    const API_BASE = SERVER_BASE;
     const API_TOKEN = 'QURAN_1234567890abcdef';
-    const RECORDING_UPLOAD_URL = '/api/recordings';
+    const RECORDING_UPLOAD_URL = `${SERVER_BASE}/api/recordings`;
+    const TRANSCRIBE_CHUNK_URL = `${SERVER_BASE}/api/transcribe-chunk`;
+    const TRANSCRIBE_URL = `${SERVER_BASE}/api/transcribe`;
     let currentSurah = 1, loadToken = 0, lightTheme = false;
     const loadedFonts = new Set();
     const els = {
@@ -465,7 +472,7 @@
     async function uploadChunk(audioChunk) {
       if (!audioChunk || audioChunk.size === 0) return;
 
-      const endpoint = '/api/transcribe-chunk';
+      const endpoint = TRANSCRIBE_CHUNK_URL;
       const formData = new FormData();
       const fileName = `chunk-${Date.now()}-${Math.round(Math.random() * 10000)}.webm`;
 
@@ -557,9 +564,9 @@
         els.speechResult.textContent = JSON.stringify(json, null, 2);
 
         try {
-          dbgLog('TRANSCRIBE', `POST /api/transcribe · file=${fileName} · size=${audioBlob.size} bytes`);
+          dbgLog('TRANSCRIBE', `POST ${TRANSCRIBE_URL} · file=${fileName} · size=${audioBlob.size} bytes`);
           const t1 = performance.now();
-          const apiResponse = await fetchWithTimeout('/api/transcribe', {
+          const apiResponse = await fetchWithTimeout(TRANSCRIBE_URL, {
             method: 'POST',
             body: formData
           }, 35000);
