@@ -345,11 +345,15 @@
     }
 
     let mediaRecorder = null;
-    let chunks = [];
+    let chunks = [];               // fragments for the CURRENT short-lived recorder cycle only
+    let allCycleBlobs = [];        // every cycle's blob, kept so Stop can still upload the full recording
     let stream = null;
     let liveStreaming = false;
     let chunkUploadInFlight = false; // guards against overlapping /api/transcribe-chunk calls
-    let chunkUploadSkipped = 0;      // how many ticks were skipped while a prior upload was in flight
+    let chunkUploadSkipped = 0;      // how many cycles were skipped while a prior upload was in flight
+    let recorderMimeType = '';
+    let cycleTimer = null;
+    const CYCLE_MS = 1500;          // how often we stop+restart the recorder to get a short, independent, standalone-decodable WebM chunk
 
     function setSpeechLog(message, mode = 'info') {
       els.speechLog.innerHTML = message;
@@ -364,6 +368,64 @@
       return words.map((w, idx) => `<span class="word-status ${idx % 2 === 0 ? 'ok' : 'bad'}">${w}</span>`).join(' ');
     }
 
+    // Starts one short recording cycle. Each cycle is its own MediaRecorder
+    // instance, so its blob has its own EBML header + init segment and is a
+    // complete, standalone-decodable WebM file on its own - unlike
+    // ondataavailable fragments from a single long-running recorder, which
+    // only the very first fragment can decode alone. This is what lets us
+    // send just the NEW audio each time instead of the whole cumulative
+    // recording, so upload size and transcription time per tick stay
+    // roughly constant no matter how long the user has been reciting.
+    function startRecorderCycle() {
+      if (!stream || !liveStreaming) return;
+
+      const recorder = new MediaRecorder(stream, recorderMimeType ? { mimeType: recorderMimeType } : undefined);
+      mediaRecorder = recorder;
+      chunks = [];
+
+      recorder.ondataavailable = event => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+
+      recorder.onstop = () => {
+        const cycleBlob = new Blob(chunks, { type: recorderMimeType || 'audio/webm' });
+        dbgLog('CHUNK', `Cycle finished: ${cycleBlob.size} bytes`);
+
+        if (cycleBlob.size > 0) {
+          allCycleBlobs.push(cycleBlob); // keep so Stop can upload the full recording too
+          if (chunkUploadInFlight) {
+            chunkUploadSkipped += 1;
+            dbgLog('CHUNK', `Skipping upload - previous chunk still in flight (${chunkUploadSkipped} skipped so far)`, 'warn');
+          } else {
+            uploadChunk(cycleBlob);
+          }
+        }
+
+        // Immediately start the next cycle so recording is continuous -
+        // there's a few ms gap while the recorder restarts, which is
+        // inaudible/negligible for speech recognition purposes.
+        if (liveStreaming && stream) {
+          startRecorderCycle();
+        } else if (!liveStreaming) {
+          // User pressed Stop - this was the final cycle. Upload the full
+          // recording (all cycles concatenated) for an authoritative,
+          // complete transcript, same as the old onstop behavior.
+          finishRecordingAndUpload();
+        }
+      };
+
+      recorder.start();
+      // Stop this cycle after CYCLE_MS - onstop above fires, uploads this
+      // cycle's audio, and immediately starts the next cycle.
+      cycleTimer = setTimeout(() => {
+        if (recorder.state !== 'inactive') {
+          recorder.stop();
+        }
+      }, CYCLE_MS);
+    }
+
     async function startRecording() {
       dbgLog('START', 'Start button clicked');
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -376,69 +438,17 @@
         setSpeechLog('<strong>Status:</strong> requesting microphone access…');
         dbgLog('MIC', 'Requesting getUserMedia({ audio: true })');
         resetLiveGrade();
+        fullTranscript = '';
+        allCycleBlobs = [];
         stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         dbgLog('MIC', 'Microphone access granted', 'ok');
 
-        const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
-        dbgLog('RECORDER', `Using mimeType: "${mimeType || '(browser default)'}"`);
-        mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
-        chunks = [];
+        recorderMimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+        dbgLog('RECORDER', `Using mimeType: "${recorderMimeType || '(browser default)'}"`);
         liveStreaming = true;
 
-        mediaRecorder.ondataavailable = event => {
-          if (event.data.size > 0) {
-            const blob = event.data;
-            chunks.push(blob);
-            dbgLog('CHUNK', `New chunk captured: ${blob.size} bytes, type=${blob.type}`);
-            if (liveStreaming) {
-              // WebM only carries its EBML header + init segment on the very
-              // first ondataavailable blob - every blob after that is a raw
-              // continuation fragment with no header, so ffmpeg can't decode
-              // it standalone (this is why /api/transcribe-chunk was 500ing
-              // on every call except sometimes the first). Send everything
-              // captured so far (header + all fragments) as one cumulative
-              // WebM blob each time instead of just the newest delta.
-              //
-              // Re-transcribing the whole growing recording gets slower every
-              // tick on CPU, so ticks can start piling up faster than the
-              // server can answer them. If we fired uploadChunk() on every
-              // tick regardless, requests would queue up behind each other
-              // until fetchWithTimeout's 15s timeout aborts an old one mid
-              // response - that's what caused the WinError 10053 /
-              // ConnectionAbortedError crashes server-side. Skip this tick
-              // if the previous upload hasn't finished yet; the next
-              // cumulative blob will include this second's audio anyway.
-              if (chunkUploadInFlight) {
-                chunkUploadSkipped += 1;
-                dbgLog('CHUNK', `Skipping upload - previous chunk still in flight (${chunkUploadSkipped} skipped so far)`, 'warn');
-              } else {
-                const cumulativeBlob = new Blob(chunks, { type: mimeType || 'audio/webm' });
-                uploadChunk(cumulativeBlob);
-              }
-            }
-          } else {
-            dbgLog('CHUNK', 'ondataavailable fired with 0-byte blob (ignored)', 'warn');
-          }
-        };
-
-        mediaRecorder.onerror = (e) => {
-          dbgLog('RECORDER', `MediaRecorder error: ${e.error?.message || e.error || 'unknown'}`, 'error');
-        };
-
-        mediaRecorder.onstop = async () => {
-          dbgLog('RECORDER', 'MediaRecorder stopped, building final blob from all chunks');
-          const audioBlob = new Blob(chunks, { type: mimeType || 'audio/webm' });
-          dbgLog('RECORDER', `Final blob: ${audioBlob.size} bytes from ${chunks.length} chunks`);
-          await uploadAudio(audioBlob);
-          if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-          }
-          stream = null;
-          liveStreaming = false;
-        };
-
-        mediaRecorder.start(1000);
-        dbgLog('RECORDER', 'mediaRecorder.start(1000) — emitting a chunk every 1000ms', 'ok');
+        startRecorderCycle();
+        dbgLog('RECORDER', `Streaming in ${CYCLE_MS}ms independent cycles — each cycle uploads only its own new audio`, 'ok');
         els.startRec.disabled = true;
         els.stopRec.disabled = false;
         setSpeechLog('<strong>Status:</strong> live stream active… speak Quranic text');
@@ -451,15 +461,34 @@
 
     async function stopRecording() {
       dbgLog('STOP', 'Stop button clicked');
+      liveStreaming = false;
+      if (cycleTimer) {
+        clearTimeout(cycleTimer);
+        cycleTimer = null;
+      }
       if (!mediaRecorder || mediaRecorder.state === 'inactive') {
         dbgLog('STOP', 'No active mediaRecorder to stop', 'warn');
+        if (stream) {
+          stream.getTracks().forEach(track => track.stop());
+          stream = null;
+        }
         return;
       }
-      liveStreaming = false;
       mediaRecorder.stop();
       els.startRec.disabled = false;
       els.stopRec.disabled = true;
       setSpeechLog('<strong>Status:</strong> stopping live stream…');
+    }
+
+    async function finishRecordingAndUpload() {
+      dbgLog('RECORDER', 'Building final blob from all recorded cycles');
+      const audioBlob = new Blob(allCycleBlobs, { type: recorderMimeType || 'audio/webm' });
+      dbgLog('RECORDER', `Final blob: ${audioBlob.size} bytes from ${allCycleBlobs.length} cycles`);
+      await uploadAudio(audioBlob);
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      stream = null;
     }
 
     async function uploadChunk(audioChunk) {
@@ -494,12 +523,12 @@
         dbgLog('CHUNK-UPLOAD', `Response ${response.status} in ${ms}ms · body: ${rawText.slice(0, 2000)}`, 'ok');
         if (json.success) {
           setSpeechLog(`<strong>Status:</strong> live chunk accepted · ${json.transcript || 'transcribed'}`, 'ok');
-          // Each upload now sends the FULL recording so far (see
-          // ondataavailable above), so the transcript that comes back is
-          // already a complete re-transcription of everything captured up
-          // to this point - not a delta. Replace, don't concatenate.
-          if (json.transcript) {
-            fullTranscript = json.transcript.trim();
+          // Each upload now sends only the NEW audio for this ~1.5s cycle
+          // (see startRecorderCycle above) - not the whole recording - so
+          // the transcript that comes back is just this cycle's delta.
+          // Append it to what we already have instead of replacing.
+          if (json.transcript && json.transcript.trim()) {
+            fullTranscript = (fullTranscript + ' ' + json.transcript.trim()).trim();
             dbgLog('TRANSCRIPT', `Updated so far: "${fullTranscript}"`);
           } else {
             dbgLog('TRANSCRIPT', 'Response had success=true but no transcript field/empty transcript', 'warn');
@@ -508,7 +537,7 @@
             const graded = ReciteMatch.gradeTranscript(expectedFlat, fullTranscript, false);
             renderLiveGrade(graded);
           } else {
-            els.speechResult.innerHTML = renderTranscriptWords(json.transcript || '');
+            els.speechResult.innerHTML = renderTranscriptWords(fullTranscript || '');
           }
         } else {
           setSpeechLog('<strong>Status:</strong> live chunk call returned missing success flag', 'error');

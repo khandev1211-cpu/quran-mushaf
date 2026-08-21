@@ -149,7 +149,13 @@ class QuranMushafProxyHandler(SimpleHTTPRequestHandler):
         try:
             files = {'audio': (parsed['file_name'], parsed['payload'], 'audio/webm')}
             colab_url = f"{COLAB_BACKEND_URL}{endpoint_path}"
+
+            import time
+            t0 = time.monotonic()
             resp = requests.post(colab_url, files=files, headers=NGROK_HEADERS, timeout=120)
+            elapsed = time.monotonic() - t0
+            print(f'[TIMING] {endpoint_path} · audio={len(parsed["payload"])} bytes · '
+                  f'round-trip={elapsed:.2f}s')
 
             try:
                 result = resp.json()
